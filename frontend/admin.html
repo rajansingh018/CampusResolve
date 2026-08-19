@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | CampusResolve</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-icon">
+                CR
+            </div>
+
+            <div>
+
+                <strong>
+                    CampusResolve
+                </strong>
+
+                <span>
+                    Admin Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="admin.html"
+                class="nav-item active"
+            >
+
+                <span>⌂</span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="#complaints"
+                class="nav-item"
+            >
+
+                <span>📋</span>
+
+                Complaints
+
+            </a>
+
+
+            <a
+                href="#analytics"
+                class="nav-item"
+            >
+
+                <span>📊</span>
+
+                Analytics
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+
+                ↪ Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================
+             TOPBAR
+        ====================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="page-label">
+                    ADMIN DASHBOARD
+                </span>
+
+                <h1>
+
+                    Welcome,
+
+                    <span id="adminName">
+                        Admin
+                    </span>
+
+                    👋
+
+                </h1>
+
+                <p>
+                    Manage and resolve campus complaints.
+                </p>
+
+            </div>
+
+
+            <!-- College -->
+
+            <div class="college-info">
+
+                <div
+                    class="college-logo"
+                    id="collegeLogo"
+                >
+                    CR
+                </div>
+
+                <div>
+
+                    <strong id="collegeName">
+                        Your College
+                    </strong>
+
+                    <span>
+                        Administration Portal
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             STATISTICS
+        ====================================== -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📋
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Complaints
+                    </span>
+
+                    <strong id="totalComplaints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    🔍
+                </div>
+
+                <div>
+
+                    <span>
+                        Under Review
+                    </span>
+
+                    <strong id="reviewComplaints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    🛠️
+                </div>
+
+                <div>
+
+                    <span>
+                        In Progress
+                    </span>
+
+                    <strong id="progressComplaints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Resolved
+                    </span>
+
+                    <strong id="resolvedComplaints">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================
+             COMPLAINTS
+        ====================================== -->
+
+        <section
+            class="complaints-section"
+            id="complaints"
+        >
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        CAMPUS ISSUES
+                    </span>
+
+                    <h2>
+                        Student Complaints
+                    </h2>
+
+                    <p>
+                        Review and manage issues reported
+                        by students.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadComplaints()"
+                >
+
+                    ↻ Refresh
+
+                </button>
+
+            </div>
+
+
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+                <button
+                    class="filter-btn active"
+                    data-filter="All"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Reported"
+                >
+                    Reported
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Under Review"
+                >
+                    Under Review
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="In Progress"
+                >
+                    In Progress
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Resolved"
+                >
+                    Resolved
+                </button>
+
+                <button
+                    class="filter-btn"
+                    data-filter="Rejected"
+                >
+                    Rejected
+                </button>
+
+            </div>
+
+
+
+            <!-- COMPLAINT LIST -->
+
+            <div
+                id="complaintsContainer"
+                class="complaints-container"
+            >
+
+                <div class="loading-state">
+
+                    <div>
+                        ⏳
+                    </div>
+
+                    <p>
+                        Loading complaints...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================
+             ANALYTICS
+        ====================================== -->
+
+        <section
+            id="analytics"
+            class="analytics-section"
+        >
+
+            <div class="analytics-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        ANALYTICS
+                    </span>
+
+                    <h2>
+                        Campus Performance
+                    </h2>
+
+                    <p>
+                        Understand complaint trends and how effectively
+                        campus issues are being resolved.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 ANALYTICS SUMMARY
+            ====================================== -->
+
+            <div class="analytics-summary">
+
+
+                <div class="analytics-card">
+
+                    <div class="analytics-card-icon blue">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Resolution Rate
+                        </span>
+
+                        <strong id="resolutionRate">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analytics-card">
+
+                    <div class="analytics-card-icon purple">
+                        ⏱️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Avg. Resolution Time
+                        </span>
+
+                        <strong id="avgResolutionTime">
+                            0 days
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analytics-card">
+
+                    <div class="analytics-card-icon red">
+                        🔴
+                    </div>
+
+                    <div>
+
+                        <span>
+                            High Priority
+                        </span>
+
+                        <strong id="highPriorityCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="analytics-card">
+
+                    <div class="analytics-card-icon orange">
+                        ⏳
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Pending Complaints
+                        </span>
+
+                        <strong id="pendingCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =====================================
+                 ANALYTICS GRID
+            ====================================== -->
+
+            <div class="analytics-grid">
+
+
+                <!-- STATUS DISTRIBUTION -->
+
+                <div class="analytics-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                STATUS
+                            </span>
+
+                            <h3>
+                                Complaint Status
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="statusAnalytics"
+                        class="status-analytics"
+                    >
+
+                        <!-- JS will generate -->
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CATEGORY ANALYTICS -->
+
+                <div class="analytics-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="panel-label">
+                                CATEGORIES
+                            </span>
+
+                            <h3>
+                                Most Reported Issues
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="categoryAnalytics"
+                        class="category-analytics"
+                    >
+
+                        <!-- JS will generate -->
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =====================================
+                 PRIORITY ANALYTICS
+            ====================================== -->
+
+            <div class="analytics-panel priority-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="panel-label">
+                            PRIORITY
+                        </span>
+
+                        <h3>
+                            Complaint Priority
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="priorityAnalytics"
+                    class="priority-analytics"
+                >
+
+                    <!-- JS will generate -->
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

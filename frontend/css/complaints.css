@@ -1,0 +1,973 @@
+:root {
+    --college-primary: #2563eb;
+    --college-secondary: #7c3aed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: white;
+
+    border-right: 1px solid #e8ebf2;
+
+    padding: 28px 18px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 10px 35px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--college-primary),
+            var(--college-secondary)
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+.sidebar-brand strong {
+    display: block;
+    font-size: 15px;
+}
+
+.sidebar-brand span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: #8b95a7;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav-item {
+    text-decoration: none;
+
+    color: #687386;
+
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background: #f4f6fa;
+}
+
+.nav-item.active {
+    background:
+        color-mix(
+            in srgb,
+            var(--college-primary) 10%,
+            white
+        );
+
+    color: var(--college-primary);
+
+    font-weight: 600;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.logout-btn {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 12px;
+
+    text-align: left;
+
+    color: #e04b4b;
+
+    cursor: pointer;
+
+    border-radius: 9px;
+}
+
+.logout-btn:hover {
+    background: #fff3f3;
+}
+
+
+/* Main */
+
+.main-content {
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    padding: 35px 55px;
+}
+
+
+/* Topbar */
+
+.topbar {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+.page-label {
+    color: var(--college-primary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.topbar h1 {
+    margin-top: 8px;
+
+    font-size: 30px;
+
+    letter-spacing: -0.8px;
+}
+
+.topbar p {
+    margin-top: 7px;
+
+    color: #7a8496;
+
+    font-size: 14px;
+}
+
+.college-info {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.college-logo {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    color: var(--college-primary);
+
+    font-weight: 700;
+}
+
+.college-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.college-info strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.college-info span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #8b95a7;
+}
+
+
+/* Filters */
+
+.filter-section {
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    border: 1px solid #dfe3ea;
+
+    background: white;
+
+    color: #687386;
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    border-color:
+        var(--college-primary);
+}
+
+.filter-btn.active {
+    background:
+        var(--college-primary);
+
+    color: white;
+
+    border-color:
+        var(--college-primary);
+}
+
+
+/* Complaint */
+
+.complaints-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.complaint-card {
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    transition: 0.2s;
+}
+
+.complaint-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(20, 30, 50, 0.06);
+}
+
+.complaint-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+}
+
+.complaint-title {
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.complaint-meta {
+    margin-top: 7px;
+
+    color: #7c8798;
+
+    font-size: 11px;
+}
+
+.complaint-description {
+    margin-top: 15px;
+
+    color: #667286;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+/* =====================================
+   Complaint Images
+===================================== */
+
+.complaint-image-section {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid #edf0f4;
+}
+
+.image-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #4d596d;
+}
+
+.complaint-image {
+    display: block;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    border: 1px solid #e4e8ef;
+
+    background: #f8f9fc;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.complaint-image:hover {
+    transform: scale(1.01);
+
+    box-shadow:
+        0 6px 18px
+        rgba(20, 30, 50, 0.10);
+}
+
+
+/* Status */
+
+.status {
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.status-reported {
+    background: #eef4ff;
+    color: #3974d8;
+}
+
+.status-review {
+    background: #fff7e5;
+    color: #b77900;
+}
+
+.status-progress {
+    background: #f0ebff;
+    color: #7050c9;
+}
+
+.status-resolved {
+    background: #eaf9ef;
+    color: #26944b;
+}
+
+.complaint-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.priority {
+    font-size: 11px;
+
+    color: #7c8798;
+}
+
+.priority strong {
+    color: #273249;
+}
+
+
+/* Empty */
+
+.empty-state,
+.loading-state {
+    background: white;
+
+    border: 1px solid #e7eaf0;
+
+    border-radius: 15px;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    color: #7c8798;
+}
+
+.empty-state div {
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+.empty-state h3 {
+    color: #273249;
+
+    margin-bottom: 7px;
+}
+
+.empty-state p {
+    font-size: 13px;
+}
+
+.empty-state a {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: var(--college-primary);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* Responsive */
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+
+    /* Sidebar */
+
+    .sidebar {
+        position: static;
+
+        width: 100%;
+
+        height: auto;
+
+        padding: 18px 14px;
+    }
+
+
+    .sidebar-brand {
+        padding: 0 8px 20px;
+    }
+
+
+    nav {
+        gap: 5px;
+    }
+
+
+    .nav-item {
+        padding: 11px 12px;
+
+        font-size: 13px;
+    }
+
+
+    .sidebar-bottom {
+        margin-top: 15px;
+    }
+
+
+    /* Main */
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 22px 14px;
+    }
+
+
+    /* Topbar */
+
+    .topbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .topbar h1 {
+        font-size: 25px;
+    }
+
+
+    .topbar p {
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    .college-info {
+        width: 100%;
+    }
+
+
+    /* Filters */
+
+    .filter-section {
+        gap: 7px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .filter-btn {
+        padding: 8px 12px;
+
+        font-size: 11px;
+    }
+
+
+    /* Complaint Card */
+
+    .complaint-card {
+        padding: 16px;
+
+        border-radius: 13px;
+    }
+
+
+    .complaint-top {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+
+    .complaint-title {
+        font-size: 15px;
+
+        line-height: 1.4;
+    }
+
+
+    .complaint-meta {
+        line-height: 1.6;
+    }
+
+
+    .complaint-description {
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* Images */
+
+    .complaint-image-section {
+        margin-top: 16px;
+
+        padding-top: 13px;
+    }
+
+
+    .image-label {
+        font-size: 11px;
+
+        margin-bottom: 8px;
+    }
+
+
+    .complaint-image {
+        width: 100%;
+
+        max-width: 100%;
+
+        height: auto;
+
+        max-height: 240px;
+
+        object-fit: contain;
+
+        border-radius: 10px;
+    }
+
+
+    /* Footer */
+
+    .complaint-footer {
+        margin-top: 15px;
+
+        padding-top: 13px;
+    }
+
+
+    /* Empty State */
+
+    .empty-state,
+    .loading-state {
+        padding: 45px 16px;
+    }
+
+}
+/* =====================================
+   STATUS TIMELINE
+===================================== */
+
+.status-timeline {
+    margin-top: 20px;
+
+    padding: 18px;
+
+    background: #f8faff;
+
+    border: 1px solid #e8edf5;
+
+    border-radius: 12px;
+}
+
+.timeline-title {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #273249;
+
+    margin-bottom: 18px;
+}
+
+.timeline {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.timeline-item {
+    position: relative;
+
+    display: flex;
+
+    gap: 13px;
+
+    padding-bottom: 20px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+
+/* Vertical line */
+
+.timeline-item:not(:last-child)::before {
+    content: "";
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 32px;
+
+    bottom: 0;
+
+    width: 2px;
+
+    background: #dfe5ee;
+}
+
+
+/* Dot */
+
+.timeline-dot {
+    width: 31px;
+
+    height: 31px;
+
+    min-width: 31px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 1px solid #dfe5ee;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 14px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* Current status */
+
+.timeline-item.current .timeline-dot {
+    border-color:
+        var(--college-primary);
+
+    background:
+        color-mix(
+            in srgb,
+            var(--college-primary) 10%,
+            white
+        );
+}
+
+
+.timeline-content {
+    padding-top: 2px;
+
+    min-width: 0;
+}
+
+.timeline-status {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #273249;
+}
+
+.timeline-item.current .timeline-status {
+    color:
+        var(--college-primary);
+}
+
+.timeline-message {
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #697589;
+
+    line-height: 1.5;
+}
+
+.timeline-date {
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    color: #9aa3b2;
+}
+
+
+/* =====================================
+   COMPLAINT IMAGES
+===================================== */
+
+.complaint-image-section {
+    margin-top: 18px;
+
+    padding: 12px;
+
+    background: #fafbfc;
+
+    border: 1px solid #e8ebf0;
+
+    border-radius: 12px;
+}
+
+.image-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #5f6b7c;
+}
+
+.complaint-image {
+    display: block;
+
+    width: 100%;
+
+    max-width: 320px;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+
+    border: 1px solid #e1e5eb;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.complaint-image:hover {
+    transform: scale(1.01);
+
+    box-shadow:
+        0 5px 15px
+        rgba(20, 30, 50, 0.08);
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 700px) {
+
+    .status-timeline {
+        padding: 14px;
+
+        margin-top: 16px;
+    }
+
+    .timeline-item {
+        gap: 10px;
+
+        padding-bottom: 17px;
+    }
+
+    .timeline-dot {
+        width: 28px;
+
+        height: 28px;
+
+        min-width: 28px;
+
+        font-size: 12px;
+    }
+
+    .timeline-item:not(:last-child)::before {
+        left: 13px;
+
+        top: 29px;
+    }
+
+    .timeline-status {
+        font-size: 11px;
+    }
+
+    .timeline-message {
+        font-size: 10px;
+    }
+
+    .timeline-date {
+        font-size: 9px;
+    }
+
+    .complaint-image {
+        width: 100%;
+
+        max-width: 100%;
+
+        height: 170px;
+
+        object-fit: cover;
+    }
+
+}

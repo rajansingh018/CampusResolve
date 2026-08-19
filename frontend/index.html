@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusResolve | Your Campus. Your Voice.</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <div class="brand">
+            <div class="brand-icon">CR</div>
+
+            <div>
+                <h2>CampusResolve</h2>
+                <span>Student Resolution Platform</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <a href="#how-it-works">How It Works</a>
+            <button class="nav-login" onclick="openCampusSelector()">
+                Find Your Campus
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- Hero -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    🇮🇳 Built for students across India
+                </div>
+
+                <h1>
+                    Your Campus.
+                    <span>Your Voice.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Report campus problems, track their progress,
+                    and make sure they actually get resolved.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="primary-btn" onclick="openCampusSelector()">
+                        Find Your Campus
+                        <span>→</span>
+                    </button>
+
+                    <a href="#how-it-works" class="secondary-btn">
+                        How it works
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>2,450+</strong>
+                        <span>Colleges</span>
+                    </div>
+
+                    <div>
+                        <strong>18L+</strong>
+                        <span>Students</span>
+                    </div>
+
+                    <div>
+                        <strong>4.7L+</strong>
+                        <span>Issues</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Hero Visual -->
+            <div class="hero-visual">
+
+                <div class="campus-card">
+
+                    <div class="card-top">
+
+                        <div class="college-logo" id="heroLogo">
+                            CR
+                        </div>
+
+                        <div>
+                            <span class="small-label">
+                                CAMPUS
+                            </span>
+
+                            <h3 id="heroCollege">
+                                Your College
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="issue-card">
+
+                        <div class="issue-icon">📶</div>
+
+                        <div class="issue-info">
+                            <strong>Wi-Fi not working</strong>
+                            <span>Block B • IT Department</span>
+                        </div>
+
+                        <div class="status">
+                            In Progress
+                        </div>
+
+                    </div>
+
+
+                    <div class="issue-card">
+
+                        <div class="issue-icon">💧</div>
+
+                        <div class="issue-info">
+                            <strong>Water supply issue</strong>
+                            <span>Hostel • Maintenance</span>
+                        </div>
+
+                        <div class="status resolved">
+                            Resolved
+                        </div>
+
+                    </div>
+
+
+                    <div class="resolution-bar">
+
+                        <div class="resolution-header">
+                            <span>Campus Resolution Rate</span>
+                            <strong>82%</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- How it works -->
+        <section id="how-it-works" class="how-section">
+
+            <div class="section-heading">
+
+                <span>HOW IT WORKS</span>
+
+                <h2>
+                    From Problem to Resolution
+                </h2>
+
+                <p>
+                    CampusResolve makes reporting campus problems
+                    simple, transparent and accountable.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">📝</div>
+
+                    <h3>Report</h3>
+
+                    <p>
+                        Tell us what's wrong and where it happened.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">🔍</div>
+
+                    <h3>Verify</h3>
+
+                    <p>
+                        Similar reports are grouped and verified.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🛠️</div>
+
+                    <h3>Resolve</h3>
+
+                    <p>
+                        The right campus department handles the issue.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">✓</div>
+
+                    <h3>Confirm</h3>
+
+                    <p>
+                        Students confirm whether the issue is actually fixed.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Categories -->
+        <section class="categories-section">
+
+            <div class="section-heading">
+
+                <span>CAMPUS ISSUES</span>
+
+                <h2>
+                    Whatever the Problem,
+                    We Track It.
+                </h2>
+
+            </div>
+
+
+            <div class="categories">
+
+                <div class="category">
+                    <span>🏫</span>
+                    <p>Infrastructure</p>
+                </div>
+
+                <div class="category">
+                    <span>📶</span>
+                    <p>Wi-Fi & IT</p>
+                </div>
+
+                <div class="category">
+                    <span>🏠</span>
+                    <p>Hostel</p>
+                </div>
+
+                <div class="category">
+                    <span>🍴</span>
+                    <p>Mess</p>
+                </div>
+
+                <div class="category">
+                    <span>🚌</span>
+                    <p>Transport</p>
+                </div>
+
+                <div class="category">
+                    <span>📚</span>
+                    <p>Academics</p>
+                </div>
+
+                <div class="category">
+                    <span>🛡️</span>
+                    <p>Safety</p>
+                </div>
+
+                <div class="category">
+                    <span>♻️</span>
+                    <p>Cleanliness</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- College Selector Modal -->
+
+    <div class="modal-overlay" id="campusModal">
+
+        <div class="campus-modal">
+
+            <button class="close-btn" onclick="closeCampusSelector()">
+                ×
+            </button>
+
+            <div class="modal-logo">
+                CR
+            </div>
+
+            <span class="modal-label">
+                FIND YOUR CAMPUS
+            </span>
+
+            <h2>
+                Select Your College
+            </h2>
+
+            <p>
+                Choose your college to personalize your CampusResolve experience.
+            </p>
+
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="collegeSearch"
+                    placeholder="Search your college..."
+                    oninput="searchCollege()"
+                >
+
+            </div>
+
+
+            <div id="collegeList" class="college-list"></div>
+
+
+            <button
+                id="continueBtn"
+                class="continue-btn"
+                onclick="continueToCampus()"
+                disabled
+            >
+                Continue to Campus →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <div class="footer-brand">
+            <div class="brand-icon">CR</div>
+
+            <strong>CampusResolve</strong>
+        </div>
+
+        <p>
+            Making campuses better, one issue at a time.
+        </p>
+
+        <span>
+            © 2026 CampusResolve
+        </span>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>

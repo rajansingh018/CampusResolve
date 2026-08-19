@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Report Issue | CampusResolve</title>
+
+    <link
+        rel="stylesheet"
+        href="css/report.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-icon">
+                CR
+            </div>
+
+            <div>
+
+                <strong>
+                    CampusResolve
+                </strong>
+
+                <span>
+                    Student Portal
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="report.html"
+                class="nav-item active"
+            >
+                <span>📝</span>
+                Report Issue
+            </a>
+
+
+            <a
+                href="complaints.html"
+                class="nav-item"
+            >
+                <span>📋</span>
+                My Complaints
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+                <span>💡</span>
+                Suggestions
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                ↪ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+
+        <!-- Topbar -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="page-label">
+                    REPORT AN ISSUE
+                </span>
+
+                <h1>
+                    Tell us what's wrong
+                </h1>
+
+                <p>
+                    Help us make your campus better
+                    by reporting an issue.
+                </p>
+
+            </div>
+
+
+            <div class="college-info">
+
+                <div
+                    class="college-logo"
+                    id="collegeLogo"
+                >
+                    CR
+                </div>
+
+
+                <div>
+
+                    <strong id="collegeName">
+                        Your College
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- Report Form -->
+
+        <section class="report-section">
+
+
+            <div class="form-card">
+
+
+                <div class="form-header">
+
+                    <span class="section-label">
+                        NEW REPORT
+                    </span>
+
+                    <h2>
+                        What happened?
+                    </h2>
+
+                    <p>
+                        Provide as much information as possible
+                        so the right department can resolve it quickly.
+                    </p>
+
+                </div>
+
+
+
+                <form id="reportForm">
+
+
+                    <!-- Title -->
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Issue Title
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="e.g. Wi-Fi not working in Block B"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- Category + Priority -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Category
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="category"
+                                required
+                            >
+
+                                <option
+                                    value=""
+                                    disabled
+                                    selected
+                                >
+                                    Select category
+                                </option>
+
+                                <option value="Infrastructure">
+                                    🏫 Infrastructure
+                                </option>
+
+                                <option value="Wi-Fi & IT">
+                                    📶 Wi-Fi & IT
+                                </option>
+
+                                <option value="Hostel">
+                                    🏠 Hostel
+                                </option>
+
+                                <option value="Mess">
+                                    🍴 Mess
+                                </option>
+
+                                <option value="Transport">
+                                    🚌 Transport
+                                </option>
+
+                                <option value="Academics">
+                                    📚 Academics
+                                </option>
+
+                                <option value="Safety">
+                                    🛡️ Safety
+                                </option>
+
+                                <option value="Cleanliness">
+                                    ♻️ Cleanliness
+                                </option>
+
+                                <option value="Other">
+                                    📌 Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="priority">
+                                Priority
+                            </label>
+
+                            <select id="priority">
+
+                                <option value="Low">
+                                    Low
+                                </option>
+
+                                <option
+                                    value="Medium"
+                                    selected
+                                >
+                                    Medium
+                                </option>
+
+                                <option value="High">
+                                    High
+                                </option>
+
+                                <option value="Critical">
+                                    Critical
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Location -->
+
+                    <div class="form-group">
+
+                        <label for="location">
+                            Location
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="location"
+                            placeholder="e.g. Block B, 2nd Floor"
+                            maxlength="150"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- Description -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Describe the issue
+                            <span>*</span>
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="6"
+                            maxlength="1000"
+                            placeholder="Tell us what happened, when it started, and any other useful details..."
+                            required
+                        ></textarea>
+
+
+                        <div class="character-count">
+                            <span id="characterCount">
+                                0
+                            </span>
+                            / 1000
+                        </div>
+
+                    </div>
+
+                    <!-- Problem Photo -->
+
+<div class="form-group">
+
+    <label for="problemImage">
+        Problem Photo
+        <span class="optional">
+            (Optional)
+        </span>
+    </label>
+
+    <div class="photo-upload">
+
+        <input
+            type="file"
+            id="problemImage"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+        <label
+            for="problemImage"
+            class="photo-upload-label"
+        >
+
+            <div class="photo-icon">
+                📷
+            </div>
+
+            <strong>
+                Upload a photo
+            </strong>
+
+            <span>
+                Show us the problem you are reporting
+            </span>
+
+            <small>
+                JPG, PNG or WEBP • Maximum 5MB
+            </small>
+
+        </label>
+
+    </div>
+
+
+    <!-- Image Preview -->
+
+    <div
+        id="imagePreview"
+        class="image-preview"
+        style="display: none;"
+    >
+
+        <img
+            id="previewImage"
+            alt="Problem preview"
+        >
+
+        <button
+            type="button"
+            id="removeImage"
+        >
+            Remove photo
+        </button>
+
+    </div>
+
+</div>
+
+
+
+                    <!-- Info -->
+
+                    <div class="report-info">
+
+                        <span>
+                            💡
+                        </span>
+
+                        <p>
+                            Your report will be visible to the
+                            appropriate college department.
+                            You can track its status from
+                            <strong>My Complaints</strong>.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- Buttons -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="dashboard.html"
+                            class="cancel-btn"
+                        >
+                            Cancel
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                            id="submitBtn"
+                        >
+                            Submit Report →
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script src="js/report.js"></script>
+
+</body>
+
+</html>

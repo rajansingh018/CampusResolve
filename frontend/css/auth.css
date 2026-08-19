@@ -1,0 +1,420 @@
+:root {
+    --college-primary: #2563eb;
+    --college-secondary: #7c3aed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #070b14;
+
+    color: white;
+}
+
+
+/* Background */
+
+.auth-background {
+    position: fixed;
+
+    width: 600px;
+    height: 600px;
+
+    border-radius: 50%;
+
+    background: var(--college-primary);
+
+    opacity: 0.12;
+
+    filter: blur(150px);
+
+    top: -250px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+
+/* Container */
+
+.auth-container {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+/* Card */
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 40px;
+
+    border: 1px solid rgba(255,255,255,0.09);
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,0.045);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.4);
+
+    text-align: center;
+}
+
+
+/* Logo */
+
+.college-logo {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: white;
+
+    color: #111;
+
+    font-weight: 800;
+
+    overflow: hidden;
+}
+
+.college-logo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* Brand */
+
+.brand-name {
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #8b96aa;
+
+    letter-spacing: 0.5px;
+}
+
+.auth-card h1 {
+    margin-top: 18px;
+
+    font-size: 30px;
+}
+
+.college-name {
+    margin-top: 8px;
+
+    color: var(--college-primary);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* Form */
+
+#loginForm {
+    margin-top: 30px;
+
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #aeb7c7;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.password-label {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.password-label a {
+    color: var(--college-primary);
+
+    text-decoration: none;
+
+    font-size: 11px;
+}
+
+.input-group input {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: rgba(255,255,255,0.04);
+
+    color: white;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--college-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.input-group input::placeholder {
+    color: #626c7e;
+}
+
+
+/* Button */
+
+.auth-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--college-primary),
+            var(--college-secondary)
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Divider */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: rgba(255,255,255,0.08);
+}
+
+.divider span {
+    color: #596477;
+
+    font-size: 10px;
+}
+
+
+/* Register */
+
+.register-text {
+    color: #7f899b;
+
+    font-size: 12px;
+}
+
+.register-text a {
+    color: var(--college-primary);
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+/* Change campus */
+
+.change-campus {
+    margin-top: 25px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #667286;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.change-campus:hover {
+    color: white;
+}
+
+
+@media (max-width: 500px) {
+
+    .auth-container {
+        padding: 15px;
+    }
+
+    .auth-card {
+        padding: 30px 22px;
+    }
+
+}
+
+/* =====================================
+   Login Role Selection
+===================================== */
+
+.login-role {
+    margin-bottom: 18px;
+}
+
+.login-role > label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #273249;
+}
+
+
+.role-options {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+
+.role-btn {
+    border: 1px solid #dfe3ea;
+
+    background: white;
+
+    color: #687386;
+
+    padding: 11px 10px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.role-btn:hover {
+    border-color:
+        var(--college-primary);
+
+    color:
+        var(--college-primary);
+}
+
+
+.role-btn.active {
+    background:
+        color-mix(
+            in srgb,
+            var(--college-primary) 10%,
+            white
+        );
+
+    border-color:
+        var(--college-primary);
+
+    color:
+        var(--college-primary);
+}
+
+
+/* =====================================
+   Mobile
+===================================== */
+
+@media (max-width: 500px) {
+
+    .role-btn {
+        padding: 10px 7px;
+
+        font-size: 12px;
+    }
+
+}

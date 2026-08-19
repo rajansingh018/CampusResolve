@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Complaints | CampusResolve</title>
+
+    <link
+        rel="stylesheet"
+        href="css/complaints.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-icon">
+                CR
+            </div>
+
+            <div>
+                <strong>CampusResolve</strong>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a
+                href="report.html"
+                class="nav-item"
+            >
+                <span>📝</span>
+                Report Issue
+            </a>
+
+            <a
+                href="complaints.html"
+                class="nav-item active"
+            >
+                <span>📋</span>
+                My Complaints
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>💡</span>
+                Suggestions
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                ↪ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+
+        <!-- Topbar -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="page-label">
+                    COMPLAINTS
+                </span>
+
+                <h1>
+                    My Complaints
+                </h1>
+
+                <p>
+                    Track all the issues you have reported.
+                </p>
+
+            </div>
+
+
+            <div class="college-info">
+
+                <div
+                    class="college-logo"
+                    id="collegeLogo"
+                >
+                    CR
+                </div>
+
+                <div>
+
+                    <strong id="collegeName">
+                        Your College
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Filters -->
+
+        <section class="filter-section">
+
+            <button
+                class="filter-btn active"
+                data-filter="All"
+            >
+                All
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="Reported"
+            >
+                Reported
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="Under Review"
+            >
+                Under Review
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="In Progress"
+            >
+                In Progress
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="Resolved"
+            >
+                Resolved
+            </button>
+
+        </section>
+
+
+        <!-- Complaints -->
+
+        <section
+            id="complaintsContainer"
+            class="complaints-container"
+        >
+
+            <div class="loading-state">
+                Loading complaints...
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="js/complaints.js"></script>
+
+</body>
+
+</html>
