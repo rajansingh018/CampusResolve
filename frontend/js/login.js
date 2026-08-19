@@ -3,7 +3,7 @@
 // =====================================
 
 const API_URL =
-    "http://localhost:5002/api";
+    "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================

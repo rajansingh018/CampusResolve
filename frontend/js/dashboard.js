@@ -2,7 +2,7 @@
 // CampusResolve Student Dashboard
 // =====================================
 
-const API_URL = "http://localhost:5002/api";
+const API_URL = "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================
@@ -711,7 +711,7 @@ async function loadComplaints() {
 
         const response =
             await fetch(
-                "http://localhost:5002/api/complaints/my",
+                "https://campus-resolve-backend.vercel.app/api/complaints/my",
                 {
 
                     method: "GET",

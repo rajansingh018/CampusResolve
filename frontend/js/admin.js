@@ -2,7 +2,7 @@
 // CampusResolve Admin Dashboard
 // =====================================
 
-const API_URL = "http://localhost:5002/api";
+const API_URL = "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================
