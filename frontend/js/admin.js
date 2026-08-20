@@ -2,7 +2,8 @@
 // CampusResolve Admin Dashboard
 // =====================================
 
-const API_URL = "https://campus-resolve-backend.vercel.app/api";
+const API_URL =
+    "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================
@@ -156,7 +157,10 @@ if (college) {
             "collegeLogo"
         );
 
-    if (collegeLogo && college.logo) {
+    if (
+        collegeLogo &&
+        college.logo
+    ) {
 
         collegeLogo.innerHTML = `
 
@@ -280,7 +284,143 @@ async function loadComplaints() {
         complaints = data;
 
 
+        // Update dashboard statistics
+
         updateStatistics();
+
+
+        // Update analytics
+
+        updateAnalytics();
+
+
+        // Render complaints
+
+        renderComplaints();
+
+
+    } catch (error) {
+
+        console.error(
+            "Complaint loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error-state">
+
+                <div>
+                    ⚠️
+                </div>
+
+                <h3>
+                    Unable to load complaints
+                </h3>
+
+                <p>
+                    ${error.message}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// =====================================
+// Statistics
+// =====================================
+
+function updateStatistics() {
+
+    const total =
+        complaints.length;
+
+
+    const review =
+        complaints.filter(
+            complaint =>
+                complaint.status ===
+                "Under Review"
+        ).length;
+
+
+    const progress =
+        complaints.filter(
+            complaint =>
+                complaint.status ===
+                "In Progress"
+        ).length;
+
+
+    const resolved =
+        complaints.filter(
+            complaint =>
+                complaint.status ===
+                "Resolved"
+        ).length;
+
+
+    const totalElement =
+        document.getElementById(
+            "totalComplaints"
+        );
+
+    const reviewElement =
+        document.getElementById(
+            "reviewComplaints"
+        );
+
+    const progressElement =
+        document.getElementById(
+            "progressComplaints"
+        );
+
+    const resolvedElement =
+        document.getElementById(
+            "resolvedComplaints"
+        );
+
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            total;
+
+    }
+
+
+    if (reviewElement) {
+
+        reviewElement.textContent =
+            review;
+
+    }
+
+
+    if (progressElement) {
+
+        progressElement.textContent =
+            progress;
+
+    }
+
+
+    if (resolvedElement) {
+
+        resolvedElement.textContent =
+            resolved;
+
+    }
+
+}
+
+
 // =====================================
 // ANALYTICS
 // =====================================
@@ -340,30 +480,59 @@ function updateAnalyticsSummary() {
             );
 
 
-    document.getElementById(
-        "resolutionRate"
-    ).textContent =
-        `${resolutionRate}%`;
-
-
-    document.getElementById(
-        "highPriorityCount"
-    ).textContent =
-        highPriority.length;
-
-
-    document.getElementById(
-        "pendingCount"
-    ).textContent =
-        pending.length;
-
-
-    document.getElementById(
-        "avgResolutionTime"
-    ).textContent =
-        calculateAverageResolutionTime(
-            resolved
+    const resolutionRateElement =
+        document.getElementById(
+            "resolutionRate"
         );
+
+    const highPriorityElement =
+        document.getElementById(
+            "highPriorityCount"
+        );
+
+    const pendingElement =
+        document.getElementById(
+            "pendingCount"
+        );
+
+    const avgResolutionElement =
+        document.getElementById(
+            "avgResolutionTime"
+        );
+
+
+    if (resolutionRateElement) {
+
+        resolutionRateElement.textContent =
+            `${resolutionRate}%`;
+
+    }
+
+
+    if (highPriorityElement) {
+
+        highPriorityElement.textContent =
+            highPriority.length;
+
+    }
+
+
+    if (pendingElement) {
+
+        pendingElement.textContent =
+            pending.length;
+
+    }
+
+
+    if (avgResolutionElement) {
+
+        avgResolutionElement.textContent =
+            calculateAverageResolutionTime(
+                resolved
+            );
+
+    }
 
 }
 
@@ -413,9 +582,7 @@ function calculateAverageResolutionTime(
                     );
 
 
-            if (
-                !resolvedEntry
-            ) {
+            if (!resolvedEntry) {
 
                 return;
 
@@ -507,7 +674,9 @@ function renderStatusAnalytics() {
 
 
     if (!container) {
+
         return;
+
     }
 
 
@@ -594,7 +763,9 @@ function renderCategoryAnalytics() {
 
 
     if (!container) {
+
         return;
+
     }
 
 
@@ -635,9 +806,11 @@ function renderCategoryAnalytics() {
     ) {
 
         container.innerHTML = `
+
             <p class="analytics-empty">
                 No category data available.
             </p>
+
         `;
 
         return;
@@ -706,7 +879,9 @@ function renderPriorityAnalytics() {
 
 
     if (!container) {
+
         return;
+
     }
 
 
@@ -767,103 +942,6 @@ function renderPriorityAnalytics() {
 
             }
         ).join("");
-
-}
-updateAnalytics();
-
-
-        renderComplaints();
-
-
-    } catch (error) {
-
-        console.error(
-            "Complaint loading error:",
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div class="error-state">
-
-                <div>
-                    ⚠️
-                </div>
-
-                <h3>
-                    Unable to load complaints
-                </h3>
-
-                <p>
-                    ${error.message}
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-// =====================================
-// Statistics
-// =====================================
-
-function updateStatistics() {
-
-    const total =
-        complaints.length;
-
-
-    const review =
-        complaints.filter(
-            complaint =>
-                complaint.status ===
-                "Under Review"
-        ).length;
-
-
-    const progress =
-        complaints.filter(
-            complaint =>
-                complaint.status ===
-                "In Progress"
-        ).length;
-
-
-    const resolved =
-        complaints.filter(
-            complaint =>
-                complaint.status ===
-                "Resolved"
-        ).length;
-
-
-    document.getElementById(
-        "totalComplaints"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "reviewComplaints"
-    ).textContent =
-        review;
-
-
-    document.getElementById(
-        "progressComplaints"
-    ).textContent =
-        progress;
-
-
-    document.getElementById(
-        "resolvedComplaints"
-    ).textContent =
-        resolved;
 
 }
 
@@ -957,28 +1035,28 @@ function renderComplaints() {
                         <div class="complaint-title">
 
                             ${escapeHTML(
-                complaint.title
-            )}
+                                complaint.title
+                            )}
 
                         </div>
 
                         <div class="complaint-meta">
 
                             ${escapeHTML(
-                complaint.category
-            )}
+                                complaint.category
+                            )}
 
                             •
 
                             ${escapeHTML(
-                complaint.location
-            )}
+                                complaint.location
+                            )}
 
                             •
 
                             ${formatDate(
-                complaint.createdAt
-            )}
+                                complaint.createdAt
+                            )}
 
                         </div>
 
@@ -990,8 +1068,8 @@ function renderComplaints() {
                     >
 
                         ${escapeHTML(
-                complaint.status
-            )}
+                            complaint.status
+                        )}
 
                     </div>
 
@@ -1001,42 +1079,72 @@ function renderComplaints() {
                 <div class="complaint-description">
 
                     ${escapeHTML(
-                complaint.description
-            )}
+                        complaint.description
+                    )}
 
                 </div>
-                ${complaint.problemImage ? `
-    <div class="complaint-image-section">
 
-        <span class="image-label">
-            📷 Problem Image
-        </span>
 
-        <img
-            src="${escapeHTML(complaint.problemImage)}"
-            alt="Problem reported by student"
-            class="complaint-image"
-            onclick="window.open('${escapeHTML(complaint.problemImage)}', '_blank')"
-        >
+                ${
+                    complaint.problemImage
+                        ? `
 
-    </div>
-` : ""}
-${complaint.resolutionImage ? `
-    <div class="complaint-image-section">
+                    <div class="complaint-image-section">
 
-        <span class="image-label">
-            ✅ Resolution Proof
-        </span>
+                        <span class="image-label">
+                            📷 Problem Image
+                        </span>
 
-        <img
-            src="${escapeHTML(complaint.resolutionImage)}"
-            alt="Resolution proof"
-            class="complaint-image"
-            onclick="window.open('${escapeHTML(complaint.resolutionImage)}', '_blank')"
-        >
+                        <img
+                            src="${escapeHTML(
+                                complaint.problemImage
+                            )}"
+                            alt="Problem reported by student"
+                            class="complaint-image"
+                            onclick="window.open(
+                                '${escapeHTML(
+                                    complaint.problemImage
+                                )}',
+                                '_blank'
+                            )"
+                        >
 
-    </div>
-` : ""}
+                    </div>
+
+                    `
+                        : ""
+                }
+
+
+                ${
+                    complaint.resolutionImage
+                        ? `
+
+                    <div class="complaint-image-section">
+
+                        <span class="image-label">
+                            ✅ Resolution Proof
+                        </span>
+
+                        <img
+                            src="${escapeHTML(
+                                complaint.resolutionImage
+                            )}"
+                            alt="Resolution proof"
+                            class="complaint-image"
+                            onclick="window.open(
+                                '${escapeHTML(
+                                    complaint.resolutionImage
+                                )}',
+                                '_blank'
+                            )"
+                        >
+
+                    </div>
+
+                    `
+                        : ""
+                }
 
 
                 <div class="student-info">
@@ -1046,10 +1154,12 @@ ${complaint.resolutionImage ? `
                         Student:
 
                         <strong>
+
                             ${escapeHTML(
-                student.name ||
-                "Unknown"
-            )}
+                                student.name ||
+                                "Unknown"
+                            )}
+
                         </strong>
 
                     </div>
@@ -1060,10 +1170,12 @@ ${complaint.resolutionImage ? `
                         Student ID:
 
                         <strong>
+
                             ${escapeHTML(
-                student.studentId ||
-                "N/A"
-            )}
+                                student.studentId ||
+                                "N/A"
+                            )}
+
                         </strong>
 
                     </div>
@@ -1074,9 +1186,11 @@ ${complaint.resolutionImage ? `
                         Priority:
 
                         <strong>
+
                             ${escapeHTML(
-                complaint.priority
-            )}
+                                complaint.priority
+                            )}
+
                         </strong>
 
                     </div>
@@ -1087,8 +1201,8 @@ ${complaint.resolutionImage ? `
                 <div class="complaint-actions">
 
                     ${getActionButtons(
-                complaint
-            )}
+                        complaint
+                    )}
 
                 </div>
 
@@ -1176,20 +1290,20 @@ function getActionButtons(
 
         buttons += `
 
-        <button
-            class="action-btn success"
-            onclick="
-                openResolutionUpload(
-                    '${complaint._id}'
-                )
-            "
-        >
+            <button
+                class="action-btn success"
+                onclick="
+                    openResolutionUpload(
+                        '${complaint._id}'
+                    )
+                "
+            >
 
-            ✓ Mark Resolved
+                ✓ Mark Resolved
 
-        </button>
+            </button>
 
-    `;
+        `;
 
     }
 
@@ -1270,6 +1384,7 @@ function getActionButtons(
 
 }
 
+
 // =====================================
 // Resolution Photo Upload
 // =====================================
@@ -1279,13 +1394,21 @@ function openResolutionUpload(
 ) {
 
     const input =
-        document.createElement("input");
+        document.createElement(
+            "input"
+        );
 
-    input.type = "file";
 
-    input.accept = "image/*";
+    input.type =
+        "file";
 
-    input.style.display = "none";
+
+    input.accept =
+        "image/*";
+
+
+    input.style.display =
+        "none";
 
 
     input.addEventListener(
@@ -1343,6 +1466,7 @@ function openResolutionUpload(
     }, 1000);
 
 }
+
 
 // =====================================
 // Update Complaint Status
@@ -1417,8 +1541,17 @@ async function updateStatus(
         }
 
 
+        // Update dashboard statistics
+
         updateStatistics();
+
+
+        // Update analytics
+
         updateAnalytics();
+
+
+        // Re-render complaints
 
         renderComplaints();
 
@@ -1438,6 +1571,7 @@ async function updateStatus(
     }
 
 }
+
 
 // =====================================
 // Resolve Complaint With Photo
@@ -1522,8 +1656,17 @@ async function resolveComplaint(
         }
 
 
+        // Update dashboard statistics
+
         updateStatistics();
+
+
+        // Update analytics
+
         updateAnalytics();
+
+
+        // Re-render complaints
 
         renderComplaints();
 
@@ -1593,7 +1736,9 @@ function formatDate(
 ) {
 
     if (!date) {
+
         return "";
+
     }
 
 
@@ -1630,11 +1775,26 @@ function escapeHTML(
 
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -1644,39 +1804,44 @@ function escapeHTML(
 // =====================================
 
 document
-    .querySelectorAll(".filter-btn")
-    .forEach(button => {
+    .querySelectorAll(
+        ".filter-btn"
+    )
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                document
-                    .querySelectorAll(
-                        ".filter-btn"
-                    )
-                    .forEach(btn =>
-                        btn.classList.remove(
-                            "active"
+                    document
+                        .querySelectorAll(
+                            ".filter-btn"
                         )
+                        .forEach(
+                            btn =>
+                                btn.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "active"
                     );
 
 
-                button.classList.add(
-                    "active"
-                );
+                    currentFilter =
+                        button.dataset.filter;
 
 
-                currentFilter =
-                    button.dataset.filter;
+                    renderComplaints();
 
+                }
+            );
 
-                renderComplaints();
-
-            }
-        );
-
-    });
+        }
+    );
 
 
 // =====================================
