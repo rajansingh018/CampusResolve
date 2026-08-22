@@ -886,3 +886,421 @@ footer {
         gap: 15px;
     }
 }
+/* =========================================================
+   CampusResolve - Clean UI Polish
+   Only visual styling. No HTML/JS changes.
+   ========================================================= */
+
+body {
+    background: #f8fafc;
+    color: #172033;
+}
+
+/* Background becomes subtle instead of glowing */
+.background-glow {
+    opacity: 0.06;
+    filter: blur(140px);
+}
+
+.glow-one {
+    background: #3b82f6;
+}
+
+.glow-two {
+    background: #0ea5e9;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    height: 72px;
+    padding: 0 7%;
+
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid #e8edf3;
+
+    backdrop-filter: blur(12px);
+}
+
+.brand h2 {
+    color: #172033;
+}
+
+.brand span {
+    color: #7b8798;
+}
+
+.brand-icon {
+    background: #1e3a8a;
+    border-radius: 10px;
+}
+
+.nav-right a {
+    color: #596579;
+}
+
+.nav-right a:hover {
+    color: #1e3a8a;
+}
+
+.nav-login {
+    background: #1e3a8a;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 18px;
+    transition: 0.2s ease;
+}
+
+.nav-login:hover {
+    background: #172f70;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 620px;
+    padding-top: 80px;
+}
+
+.badge {
+    color: #315b91;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+}
+
+.hero h1 {
+    color: #172033;
+    letter-spacing: -2.5px;
+}
+
+.hero h1 span {
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: #1e3a8a;
+}
+
+.hero-description {
+    color: #687386;
+}
+
+.primary-btn {
+    background: #1e3a8a;
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.16);
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    background: #172f70;
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    color: #526074;
+}
+
+.secondary-btn:hover {
+    color: #1e3a8a;
+}
+
+.hero-stats strong {
+    color: #172033;
+}
+
+.hero-stats span {
+    color: #7b8798;
+}
+
+
+/* ================= HERO CARD ================= */
+
+.campus-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.08);
+
+    backdrop-filter: none;
+    transform: none;
+}
+
+.card-top {
+    border-bottom: 1px solid #edf0f4;
+}
+
+.card-top h3 {
+    color: #172033;
+}
+
+.small-label {
+    color: #7d8797;
+}
+
+.college-logo {
+    background: #1e3a8a;
+}
+
+.issue-card {
+    border-bottom: 1px solid #edf0f4;
+}
+
+.issue-icon {
+    background: #f1f5f9;
+}
+
+.issue-info strong {
+    color: #263247;
+}
+
+.issue-info span {
+    color: #7b8798;
+}
+
+.status {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status.resolved {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+
+/* ================= RESOLUTION ================= */
+
+.resolution-header {
+    color: #7b8798;
+}
+
+.progress {
+    background: #e8edf3;
+}
+
+.progress div {
+    background: #1e3a8a;
+}
+
+
+/* ================= SECTIONS ================= */
+
+.how-section,
+.categories-section {
+    background: #ffffff;
+}
+
+.section-heading > span {
+    color: #1e3a8a;
+}
+
+.section-heading h2 {
+    color: #172033;
+}
+
+.section-heading p {
+    color: #697589;
+}
+
+
+/* ================= STEPS ================= */
+
+.step {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.035);
+
+    transition: 0.2s ease;
+}
+
+.step:hover {
+    transform: translateY(-3px);
+    border-color: #d4def0;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+}
+
+.step-number {
+    color: #94a0b2;
+}
+
+.step h3 {
+    color: #263247;
+}
+
+.step p {
+    color: #748095;
+}
+
+
+/* ================= CATEGORIES ================= */
+
+.category {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
+
+    transition: 0.2s ease;
+}
+
+.category:hover {
+    transform: translateY(-3px);
+    border-color: #bfd1ed;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.category p {
+    color: #667286;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(5px);
+}
+
+.campus-modal {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+
+    border-radius: 16px;
+
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.18);
+}
+
+.close-btn {
+    color: #8a95a6;
+}
+
+.close-btn:hover {
+    color: #172033;
+}
+
+.modal-logo {
+    background: #1e3a8a;
+}
+
+.modal-label {
+    color: #1e3a8a;
+}
+
+.campus-modal h2 {
+    color: #172033;
+}
+
+.campus-modal > p {
+    color: #6d788a;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    background: #f8fafc;
+    border: 1px solid #dfe5ec;
+}
+
+.search-box:focus-within {
+    border-color: #8eabe0;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
+}
+
+.search-box input {
+    color: #172033;
+}
+
+.search-box input::placeholder {
+    color: #98a2b1;
+}
+
+
+/* ================= COLLEGE LIST ================= */
+
+.college-option {
+    background: #f8fafc;
+    border: 1px solid transparent;
+}
+
+.college-option:hover {
+    background: #f1f5f9;
+}
+
+.college-option.selected {
+    border-color: #9bb5df;
+    background: #eff6ff;
+}
+
+.college-info strong {
+    color: #263247;
+}
+
+.college-info span {
+    color: #7b8798;
+}
+
+
+/* ================= CONTINUE ================= */
+
+.continue-btn {
+    background: #1e3a8a;
+    border-radius: 8px;
+
+    transition: 0.2s ease;
+}
+
+.continue-btn:hover:not(:disabled) {
+    background: #172f70;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #f8fafc;
+    border-top: 1px solid #e5eaf0;
+    color: #7b8798;
+}
+
+.footer-brand {
+    color: #263247;
+}
+
+
+/* ================= MOBILE POLISH ================= */
+
+@media (max-width: 900px) {
+    .hero {
+        padding-top: 65px;
+    }
+
+    .campus-card {
+        transform: none;
+    }
+}
+
+@media (max-width: 550px) {
+    .hero h1 {
+        letter-spacing: -1.5px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+}

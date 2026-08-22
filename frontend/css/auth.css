@@ -418,3 +418,276 @@ body {
     }
 
 }
+
+/* =========================================================
+   CampusResolve - Clean Authentication UI
+   Visual changes only
+   ========================================================= */
+
+body {
+    background: #f8fafc;
+    color: #172033;
+}
+
+
+/* ================= BACKGROUND ================= */
+
+.auth-background {
+    background: #3b82f6;
+    opacity: 0.045;
+    filter: blur(150px);
+}
+
+
+/* ================= AUTH CONTAINER ================= */
+
+.auth-container {
+    padding: 30px 20px;
+}
+
+
+/* ================= AUTH CARD ================= */
+
+.auth-card {
+    max-width: 430px;
+
+    padding: 38px;
+
+    background: #ffffff;
+
+    border: 1px solid #e4e9f0;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 55px rgba(15, 23, 42, 0.08);
+
+    backdrop-filter: none;
+}
+
+
+/* ================= COLLEGE LOGO ================= */
+
+.college-logo {
+    width: 68px;
+    height: 68px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #e5eaf0;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+}
+
+
+/* ================= BRAND ================= */
+
+.brand-name {
+    color: #6f7b8e;
+    font-size: 12px;
+}
+
+.auth-card h1 {
+    color: #172033;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+}
+
+.college-name {
+    color: #1e3a8a;
+}
+
+
+/* ================= FORM ================= */
+
+#loginForm {
+    margin-top: 28px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    color: #465267;
+    font-size: 12px;
+}
+
+.password-label a {
+    color: #1e3a8a;
+}
+
+.input-group input {
+    padding: 13px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce2ea;
+
+    border-radius: 8px;
+
+    color: #172033;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-group input:hover {
+    border-color: #c5ceda;
+}
+
+.input-group input:focus {
+    border-color: #6d8fc7;
+
+    box-shadow:
+        0 0 0 3px rgba(30, 58, 138, 0.08);
+}
+
+.input-group input::placeholder {
+    color: #9aa4b3;
+}
+
+
+/* ================= LOGIN BUTTON ================= */
+
+.auth-btn {
+    padding: 13px;
+
+    background: #1e3a8a;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 7px 18px rgba(30, 58, 138, 0.15);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-btn:hover {
+    background: #172f70;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 9px 22px rgba(30, 58, 138, 0.18);
+}
+
+
+/* ================= DIVIDER ================= */
+
+.divider {
+    margin: 23px 0;
+}
+
+.divider::before,
+.divider::after {
+    background: #e7ebf0;
+}
+
+.divider span {
+    color: #98a2b1;
+}
+
+
+/* ================= REGISTER ================= */
+
+.register-text {
+    color: #7a8596;
+}
+
+.register-text a {
+    color: #1e3a8a;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================= CHANGE CAMPUS ================= */
+
+.change-campus {
+    color: #7b8798;
+
+    transition: color 0.2s ease;
+}
+
+.change-campus:hover {
+    color: #1e3a8a;
+}
+
+
+/* ================= ROLE SELECTION ================= */
+
+.login-role > label {
+    color: #465267;
+}
+
+.role-options {
+    gap: 9px;
+}
+
+.role-btn {
+    padding: 11px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce2ea;
+
+    color: #667286;
+
+    border-radius: 8px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.role-btn:hover {
+    background: #f8fafc;
+
+    border-color: #9bb1d4;
+
+    color: #1e3a8a;
+}
+
+.role-btn.active {
+    background: #eff6ff;
+
+    border-color: #8da9d3;
+
+    color: #1e3a8a;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 500px) {
+
+    .auth-container {
+        padding: 18px 14px;
+    }
+
+    .auth-card {
+        padding: 30px 22px;
+
+        border-radius: 14px;
+    }
+
+    .auth-card h1 {
+        font-size: 25px;
+    }
+
+    .college-logo {
+        width: 62px;
+        height: 62px;
+    }
+
+}
