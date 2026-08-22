@@ -14,6 +14,9 @@ const connectDB =
 const notificationRoutes =
     require("./routes/notificationRoutes");
 
+const checkEscalations =
+    require("./services/escalationService");
+
 
 // Connect database
 
@@ -64,6 +67,11 @@ app.use(
     notificationRoutes
 );
 
+app.use(
+    "/api/ai",
+    require("./routes/aiRoutes")
+);
+
 
 // Health check
 
@@ -84,6 +92,15 @@ app.listen(PORT, () => {
 
     console.log(
         `CampusResolve server running on http://localhost:${PORT}`
+    );
+
+    // Run escalation check immediately when server starts
+    checkEscalations();
+
+    // Run escalation check every 10 minutes
+    setInterval(
+        checkEscalations,
+        10 * 60 * 1000
     );
 
 });

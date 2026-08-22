@@ -11,7 +11,11 @@ let selectedCollege = null;
 // Backend API
 // =====================================
 
-const API_URL = "https://campus-resolve-backend.vercel.app/api";
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5002/api"
+        : "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================

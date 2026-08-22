@@ -9,6 +9,7 @@
     <title>Dashboard | CampusResolve</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/chatbot.css">
 </head>
 
 <body>
@@ -89,55 +90,59 @@
                 </h1>
 
             </div>
-            <!-- Notification Bell -->
+            <!-- Topbar Actions -->
+            <div class="topbar-actions">
 
-            <div class="notification-wrapper">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper">
 
-                <button class="notification-btn" id="notificationBtn" type="button" aria-label="Notifications">
+                    <button class="notification-btn" id="notificationBtn" type="button" aria-label="Notifications">
 
-                    🔔
+                        🔔
 
-                    <span id="notificationBadge" class="notification-badge hidden">
-                        0
-                    </span>
+                        <span id="notificationBadge" class="notification-badge hidden">
+                            0
+                        </span>
 
-                </button>
+                    </button>
 
 
-                <!-- Notification Dropdown -->
+                    <!-- Notification Dropdown -->
 
-                <div id="notificationPanel" class="notification-panel">
+                    <div id="notificationPanel" class="notification-panel">
 
-                    <div class="notification-header">
+                        <div class="notification-header">
 
-                        <div>
+                            <div>
 
-                            <strong>
-                                Notifications
-                            </strong>
+                                <strong>
+                                    Notifications
+                                </strong>
 
-                            <span id="notificationCount">
-                                No new notifications
-                            </span>
+                                <span id="notificationCount">
+                                    No new notifications
+                                </span>
+
+                            </div>
+
+                            <button id="markAllReadBtn" type="button">
+                                Mark all as read
+                            </button>
 
                         </div>
 
-                        <button id="markAllReadBtn" type="button">
-                            Mark all as read
-                        </button>
 
-                    </div>
+                        <div id="notificationList" class="notification-list">
 
+                            <div class="notification-empty">
 
-                    <div id="notificationList" class="notification-list">
+                                🔔
 
-                        <div class="notification-empty">
+                                <p>
+                                    No notifications yet.
+                                </p>
 
-                            🔔
-
-                            <p>
-                                No notifications yet.
-                            </p>
+                            </div>
 
                         </div>
 
@@ -145,24 +150,24 @@
 
                 </div>
 
-            </div>
 
+                <div class="college-info">
 
-            <div class="college-info">
+                    <div class="college-logo" id="collegeLogo">
+                        CR
+                    </div>
 
-                <div class="college-logo" id="collegeLogo">
-                    CR
-                </div>
+                    <div>
 
-                <div>
+                        <strong id="collegeName">
+                            Your College
+                        </strong>
 
-                    <strong id="collegeName">
-                        Your College
-                    </strong>
+                        <span>
+                            Student Portal
+                        </span>
 
-                    <span>
-                        Student Portal
-                    </span>
+                    </div>
 
                 </div>
 
@@ -365,6 +370,7 @@
 
 
     <script src="js/dashboard.js"></script>
+    <script src="js/chatbot.js"></script>
 
 </body>
 

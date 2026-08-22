@@ -22,18 +22,20 @@ router.get(
 
         try {
 
+            const userId = req.user.userId || req.user._id;
+
             const notifications =
                 await Notification.find({
-                    user: req.user._id
+                    user: userId
                 })
-                .populate(
-                    "complaint",
-                    "title status"
-                )
-                .sort({
-                    createdAt: -1
-                })
-                .limit(50);
+                    .populate(
+                        "complaint",
+                        "title status"
+                    )
+                    .sort({
+                        createdAt: -1
+                    })
+                    .limit(50);
 
 
             res.json(
@@ -74,6 +76,8 @@ router.patch(
 
         try {
 
+            const userId = req.user.userId || req.user._id;
+
             const notification =
                 await Notification.findOneAndUpdate(
 
@@ -82,16 +86,17 @@ router.patch(
                             req.params.id,
 
                         user:
-                            req.user._id
-
+                            userId
                     },
 
                     {
-                        isRead: true
+                        isRead:
+                            true
                     },
 
                     {
-                        new: true
+                        new:
+                            true
                     }
 
                 );
@@ -147,11 +152,13 @@ router.patch(
 
         try {
 
+            const userId = req.user.userId || req.user._id;
+
             await Notification.updateMany(
 
                 {
                     user:
-                        req.user._id,
+                        userId,
 
                     isRead:
                         false

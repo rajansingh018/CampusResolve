@@ -115,10 +115,10 @@ router.post(
             priority || "Medium",
 
         student:
-            req.user.userId,
+            req.user.userId || req.user._id,
 
         college:
-            req.user.collegeId,
+            req.user.collegeId || req.user.college,
 
         problemImage,
 
@@ -183,14 +183,17 @@ router.get(
 
         try {
 
+            const userId = req.user.userId || req.user._id;
+            const collegeId = req.user.collegeId || req.user.college;
+
             const complaints =
                 await Complaint.find({
 
                     student:
-                        req.user.userId,
+                        userId,
 
                     college:
-                        req.user.collegeId
+                        collegeId
 
                 })
                     .sort({

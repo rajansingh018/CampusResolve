@@ -2,7 +2,13 @@
 // CampusResolve Student Dashboard
 // =====================================
 
-const API_URL = "https://campus-resolve-backend.vercel.app/api";
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+
+        ? "http://localhost:5002/api"
+
+        : "https://campus-resolve-backend.vercel.app/api";
 
 
 // =====================================
@@ -157,6 +163,8 @@ async function loadNotifications() {
 
 
         notifications = data;
+
+        console.log(`[CampusResolve] Loaded ${notifications.length} notification(s):`, notifications);
 
         renderNotifications();
 
@@ -572,7 +580,7 @@ async function markAllNotificationsRead() {
 
 
 // =====================================
-// Notification Button
+// Notification Button & Dropdown
 // =====================================
 
 const notificationBtn =
@@ -591,6 +599,35 @@ const markAllReadBtn =
     );
 
 
+function toggleNotificationDropdown(event) {
+
+    if (event) {
+        event.stopPropagation();
+    }
+
+    const panel =
+        document.getElementById(
+            "notificationPanel"
+        );
+
+    if (!panel) return;
+
+    const isOpen =
+        panel.classList.toggle(
+            "show"
+        );
+
+    if (isOpen) {
+        // Fetch fresh notifications when opened
+        loadNotifications();
+    }
+
+}
+
+window.toggleNotificationDropdown =
+    toggleNotificationDropdown;
+
+
 if (
     notificationBtn &&
     notificationPanel
@@ -602,8 +639,8 @@ if (
 
             event.stopPropagation();
 
-            notificationPanel.classList.toggle(
-                "show"
+            toggleNotificationDropdown(
+                event
             );
 
         }
@@ -629,24 +666,31 @@ if (markAllReadBtn) {
 
 
 // =====================================
-// Close Notification Panel
+// Close Notification Panel on outside click
 // =====================================
 
 document.addEventListener(
     "click",
     event => {
 
+        const panel =
+            document.getElementById(
+                "notificationPanel"
+            );
+
+        const btn =
+            document.getElementById(
+                "notificationBtn"
+            );
+
         if (
-            notificationPanel &&
-            !notificationPanel.contains(
-                event.target
-            ) &&
-            !notificationBtn.contains(
-                event.target
-            )
+            panel &&
+            panel.classList.contains("show") &&
+            !panel.contains(event.target) &&
+            (!btn || !btn.contains(event.target))
         ) {
 
-            notificationPanel.classList.remove(
+            panel.classList.remove(
                 "show"
             );
 
@@ -711,7 +755,7 @@ async function loadComplaints() {
 
         const response =
             await fetch(
-                "https://campus-resolve-backend.vercel.app/api/complaints/my",
+                `${API_URL}/complaints/my`,
                 {
 
                     method: "GET",
@@ -1129,3 +1173,6 @@ function logout() {
 loadComplaints();
 
 loadNotifications();
+
+// Auto-refresh notifications every 30 seconds for live updates
+setInterval(loadNotifications, 30000);

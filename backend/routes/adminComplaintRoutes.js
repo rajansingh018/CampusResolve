@@ -391,24 +391,32 @@ router.patch(
 
 
             // =================================
-            // Save
+            // Save Complaint
             // =================================
 
             await complaint.save();
 
+
             // =================================
-            // Create Student Notification
+            // CREATE STUDENT NOTIFICATION
+            // =================================
+            // Complaint notifications are
+            // always enabled.
             // =================================
 
             await Notification.create({
 
-                user: complaint.student,
+                user:
+                    complaint.student,
 
-                complaint: complaint._id,
+                complaint:
+                    complaint._id,
 
-                title: `Complaint ${status}`,
+                title:
+                    `Complaint ${status}`,
 
-                message: message,
+                message:
+                    message,
 
                 type:
                     status === "Resolved"

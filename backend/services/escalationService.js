@@ -6,6 +6,9 @@ const Complaint =
 const College =
     require("../models/College");
 
+const Notification =
+    require("../models/Notification");
+
 
 // =====================================
 // Email Transporter
@@ -37,23 +40,25 @@ async function checkEscalations() {
 
     try {
 
-        const escalationDays =
+        // Escalation time in hours
+        const escalationHours =
             Number(
-                process.env.ESCALATION_DAYS || 7
+                process.env.ESCALATION_HOURS || 12
             );
 
 
+        // Calculate deadline
         const deadline =
-            new Date();
-
-        deadline.setDate(
-            deadline.getDate() -
-            escalationDays
-        );
+            new Date(
+                Date.now() -
+                escalationHours * 60 * 60 * 1000
+            );
 
 
-        // Find unresolved complaints
-        // older than escalation period
+        // Find complaints which:
+        // 1. Are older than 12 hours
+        // 2. Are not resolved/rejected
+        // 3. Have not already been escalated
 
         const complaints =
             await Complaint.find({
@@ -85,7 +90,9 @@ async function checkEscalations() {
 
             try {
 
-                // Get college
+                // =================================
+                // Get College
+                // =================================
 
                 const college =
                     await College.findById(
@@ -121,7 +128,7 @@ Dear Principal/Dean,
 
 A complaint submitted through CampusResolve
 has remained unresolved for more than
-${escalationDays} days.
+${escalationHours} hours.
 
 Complaint Details:
 
@@ -138,7 +145,7 @@ Current Status:
 ${complaint.status}
 
 Reported On:
-${complaint.createdAt.toLocaleDateString("en-IN")}
+${complaint.createdAt.toLocaleString("en-IN")}
 
 Complaint Description:
 ${complaint.description}
@@ -190,6 +197,18 @@ Student Complaint Resolution System
 
                 await complaint.save();
 
+                // Create student notification for escalation
+                try {
+                    await Notification.create({
+                        user: complaint.student,
+                        complaint: complaint._id,
+                        title: "Complaint Escalated ⚠️",
+                        message: `Your complaint "${complaint.title}" has been escalated to higher authorities due to resolution delay.`,
+                        type: "warning"
+                    });
+                } catch (notifErr) {
+                    console.error("Failed to create escalation notification:", notifErr.message);
+                }
 
                 console.log(
                     `Complaint ${complaint._id} escalated successfully.`
