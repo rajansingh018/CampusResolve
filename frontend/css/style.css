@@ -892,7 +892,7 @@ footer {
    ========================================================= */
 
 body {
-    background: #f8fafc;
+    background: #bdd1dee3;
     color: #172033;
 }
 
@@ -1090,7 +1090,7 @@ body {
 
 .how-section,
 .categories-section {
-    background: #ffffff;
+    background: #bdd1dee3;
 }
 
 .section-heading > span {
