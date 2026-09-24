@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry Partner Portal | CampusResolve</title>
+    <link rel="stylesheet" href="css/industry.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/challenges.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">🤝</div>
+            <div>
+                <strong style="color: white; font-size: 15px;">CampusResolve</strong>
+                <span style="display: block; font-size: 11px; color: #99f6e4;">Industry Portal</span>
+            </div>
+        </div>
+
+        <nav>
+            <a class="nav-item active" data-tab="dashboardTab" onclick="switchTab('dashboardTab', this)">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a class="nav-item" data-tab="opportunitiesTab" onclick="switchTab('opportunitiesTab', this)">
+                <span>🎯</span>
+                Available Challenges
+            </a>
+
+            <a class="nav-item" data-tab="proposalsTab" onclick="switchTab('proposalsTab', this)">
+                <span>📄</span>
+                My Proposals
+            </a>
+
+            <a class="nav-item" data-tab="collaborationsTab" onclick="switchTab('collaborationsTab', this)">
+                <span>⚙️</span>
+                Active Projects
+            </a>
+
+            <a class="nav-item" data-tab="completedTab" onclick="switchTab('completedTab', this)">
+                <span>🏆</span>
+                Completed & Impact
+            </a>
+
+            <a class="nav-item" data-tab="profileTab" onclick="switchTab('profileTab', this)">
+                <span>🏢</span>
+                Company Profile
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-btn" onclick="logout()">
+                ↪ Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div>
+                <span class="page-label">INDUSTRY COLLABORATION NETWORK</span>
+                <h1 id="topbarHeading">Partner Dashboard 👋</h1>
+                <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 13px;">Discover university challenges, submit solution proposals, and lead joint implementations.</p>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper">
+                    <button class="notification-btn" id="notificationBtn" type="button" aria-label="Notifications">
+                        🔔
+                        <span id="notificationBadge" class="notification-badge hidden">0</span>
+                    </button>
+
+                    <div id="notificationPanel" class="notification-panel">
+                        <div class="notification-header">
+                            <div>
+                                <strong>Notifications</strong>
+                                <span id="notificationCount">No new notifications</span>
+                            </div>
+                            <button id="markAllReadBtn" type="button">Mark all as read</button>
+                        </div>
+                        <div id="notificationList" class="notification-list">
+                            <div class="notification-empty">
+                                🔔
+                                <p>No notifications yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Badge -->
+                <div class="company-badge">
+                    <div style="width: 38px; height: 38px; border-radius: 8px; background: #ccfbf1; color: #0f766e; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px;">
+                        🏢
+                    </div>
+                    <div>
+                        <strong id="companyNameBadge" style="font-size: 14px; color: #0f172a; display: block;">Company Name</strong>
+                        <span id="companyCategoryBadge" style="font-size: 11px; color: #64748b;">Industry Partner</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- KPI Metrics Row -->
+        <section class="stats-grid">
+            <div class="kpi-card" onclick="switchTab('opportunitiesTab', document.querySelector('[data-tab=opportunitiesTab]'))" style="cursor: pointer;">
+                <div class="kpi-icon teal">🎯</div>
+                <div>
+                    <strong id="statAvailable">0</strong>
+                    <span>Available Challenges</span>
+                </div>
+            </div>
+
+            <div class="kpi-card" onclick="switchTab('proposalsTab', document.querySelector('[data-tab=proposalsTab]'))" style="cursor: pointer;">
+                <div class="kpi-icon blue">📄</div>
+                <div>
+                    <strong id="statProposals">0</strong>
+                    <span>Submitted Proposals</span>
+                </div>
+            </div>
+
+            <div class="kpi-card" onclick="switchTab('collaborationsTab', document.querySelector('[data-tab=collaborationsTab]'))" style="cursor: pointer;">
+                <div class="kpi-icon purple">⚙️</div>
+                <div>
+                    <strong id="statActive">0</strong>
+                    <span>Active Collaborations</span>
+                </div>
+            </div>
+
+            <div class="kpi-card" onclick="switchTab('completedTab', document.querySelector('[data-tab=completedTab]'))" style="cursor: pointer;">
+                <div class="kpi-icon green">🏆</div>
+                <div>
+                    <strong id="statCompleted">0</strong>
+                    <span>Completed Solutions</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================
+             TAB 1: DASHBOARD OVERVIEW
+        ====================================== -->
+        <div id="dashboardTab" class="tab-content active">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                <h2 style="font-size: 18px; margin: 0; color: #0f172a;">🔥 Recommended Opportunities</h2>
+                <button class="btn-outline" onclick="switchTab('opportunitiesTab', document.querySelector('[data-tab=opportunitiesTab]'))">
+                    View All Challenges →
+                </button>
+            </div>
+            <div id="dashOpportunitiesContainer" class="opp-grid">
+                <div style="grid-column: 1/-1; padding: 30px; text-align: center; color: #64748b;">⏳ Loading opportunities...</div>
+            </div>
+        </div>
+
+        <!-- =====================================
+             TAB 2: AVAILABLE CHALLENGES
+        ====================================== -->
+        <div id="opportunitiesTab" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h2 style="font-size: 18px; margin: 0; color: #0f172a;">🎯 University Challenges Seeking Industry Partners</h2>
+                    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Validated campus problems open for technical, research, or service proposals.</p>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="oppSearch" placeholder="Search by skill, domain..." oninput="filterOpportunities()" style="padding: 9px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; width: 220px;">
+                    <select id="oppCategoryFilter" onchange="filterOpportunities()" style="padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px;">
+                        <option value="All">All Categories</option>
+                        <option value="Smart Campus">Smart Campus</option>
+                        <option value="Energy & Sustainability">Energy & Sustainability</option>
+                        <option value="Water & Waste Management">Water & Waste Management</option>
+                        <option value="Transportation & Mobility">Transportation & Mobility</option>
+                        <option value="Cybersecurity & Safety">Cybersecurity & Safety</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="opportunitiesContainer" class="opp-grid">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
+
+        <!-- =====================================
+             TAB 3: MY PROPOSALS
+        ====================================== -->
+        <div id="proposalsTab" class="tab-content">
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 18px; margin: 0; color: #0f172a;">📄 Submitted Solution Proposals</h2>
+                <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Track the status of your proposals submitted to universities.</p>
+            </div>
+            <div id="proposalsContainer">
+                <!-- Table or Cards -->
+            </div>
+        </div>
+
+        <!-- =====================================
+             TAB 4: ACTIVE COLLABORATIONS
+        ====================================== -->
+        <div id="collaborationsTab" class="tab-content">
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 18px; margin: 0; color: #0f172a;">⚙️ Active Collaboration Projects</h2>
+                <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Post milestones and progress updates on live university-industry projects.</p>
+            </div>
+            <div id="collaborationsContainer" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
+
+        <!-- =====================================
+             TAB 5: COMPLETED SOLUTIONS & IMPACT
+        ====================================== -->
+        <div id="completedTab" class="tab-content">
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 18px; margin: 0; color: #0f172a;">🏆 Completed Projects & SIH Measured Impact</h2>
+                <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Showcase of successful solutions and verifiable community outcomes.</p>
+            </div>
+            <div id="completedContainer" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Dynamically Rendered -->
+            </div>
+        </div>
+
+        <!-- =====================================
+             TAB 6: COMPANY PROFILE
+        ====================================== -->
+        <div id="profileTab" class="tab-content">
+            <div style="max-width: 680px; background: white; border: 1px solid var(--border-color); border-radius: 14px; padding: 28px;">
+                <h2 style="font-size: 18px; margin: 0 0 16px 0; color: #0f172a;">🏢 Company / Organization Profile</h2>
+                <form id="profileForm">
+                    <div style="margin-bottom: 14px;">
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Company / Organization Name</label>
+                        <input type="text" id="profCompanyName" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+                        <div>
+                            <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Primary Industry Category</label>
+                            <select id="profCategory" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Energy & CleanTech">Energy & CleanTech</option>
+                                <option value="Robotics & Automation">Robotics & Automation</option>
+                                <option value="Environmental Services">Environmental Services</option>
+                                <option value="Healthcare & Life Sciences">Healthcare & Life Sciences</option>
+                                <option value="Smart Infrastructure">Smart Infrastructure</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Official Website</label>
+                            <input type="url" id="profWebsite" placeholder="https://example.com" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Areas of Expertise / Core Tech (Comma separated)</label>
+                        <input type="text" id="profExpertise" placeholder="e.g. IoT, Solar Energy, Cloud Computing, Edge AI, Water Purification" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+                        <div>
+                            <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Primary Contact Person</label>
+                            <input type="text" id="profContactName" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Contact Phone</label>
+                            <input type="tel" id="profPhone" placeholder="+91 9876543210" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Company Overview / Capabilities</label>
+                        <textarea id="profDescription" rows="4" placeholder="Brief summary of company capabilities, past industry projects, or CSR initiatives..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;"></textarea>
+                    </div>
+
+                    <button type="submit" id="profSaveBtn" class="btn-primary" style="padding: 10px 24px;">Save Profile</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal: Submit Industry Proposal -->
+    <div id="proposalModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <span style="font-size: 11px; font-weight: 700; color: #0f766e; text-transform: uppercase;">Submit Industry Solution</span>
+                    <h3 id="propChallengeTitle" style="margin-top: 4px;">Challenge Opportunity</h3>
+                </div>
+                <button onclick="closeProposalModal()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#94a3b8;">&times;</button>
+            </div>
+
+            <form id="proposalForm">
+                <input type="hidden" id="propChallengeId">
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Proposed Technical / Innovative Solution <span style="color:red;">*</span></label>
+                    <textarea id="propSolution" required rows="3" placeholder="Outline your solution architecture, product, or approach..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;"></textarea>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Implementation Methodology & Execution Plan <span style="color:red;">*</span></label>
+                    <textarea id="propApproach" required rows="3" placeholder="Step-by-step deployment plan (pilot, installation, testing, maintenance)..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;"></textarea>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Estimated Timeline <span style="color:red;">*</span></label>
+                        <input type="text" id="propTimeline" required placeholder="e.g. 2 months (60 days)" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Estimated Cost / Funding Model</label>
+                        <input type="text" id="propCost" placeholder="e.g. CSR Grant / Sponsored / ₹85,000" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Expected Societal / Campus Impact <span style="color:red;">*</span></label>
+                    <input type="text" id="propImpact" required placeholder="e.g. 20% electricity savings, 2,500 students benefited" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Required University Resources / Support</label>
+                    <input type="text" id="propResources" placeholder="e.g. Access to Block B rooftop, electrical sub-station data" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Supporting Proposal Doc / Slide Deck (Optional)</label>
+                    <input type="file" id="propDoc" accept="image/*,.pdf" style="font-size:13px;">
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" class="btn-outline" onclick="closeProposalModal()">Cancel</button>
+                    <button type="submit" id="propSubmitBtn" class="btn-primary">Submit Proposal 🚀</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Post Progress Update -->
+    <div id="progressModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>📢 Post Project Progress Update</h3>
+                <button onclick="closeProgressModal()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#94a3b8;">&times;</button>
+            </div>
+
+            <form id="progressForm">
+                <input type="hidden" id="progCollabId">
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Milestone Title *</label>
+                    <input type="text" id="progTitle" required placeholder="e.g. IoT Sensor Installation Completed in Hostels" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Overall Completion Percentage (0-100%) *</label>
+                        <input type="number" id="progPercent" min="0" max="100" required placeholder="e.g. 60" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Visibility</label>
+                        <select id="progPublic" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                            <option value="true">Public (Visible to Students & Admin)</option>
+                            <option value="false">Internal Note (Admin & Industry Only)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Progress Details & Results Achieved *</label>
+                    <textarea id="progDesc" required rows="3" placeholder="Detail the technical milestones reached, test results, or next steps..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;"></textarea>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" class="btn-outline" onclick="closeProgressModal()">Cancel</button>
+                    <button type="submit" id="progSubmitBtn" class="btn-primary">Post Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/industry.js"></script>
+</body>
+
+</html>

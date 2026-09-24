@@ -158,10 +158,36 @@ roleButtons.forEach(
 
 
                 // =========================
+                // DEPARTMENT STAFF
+                // =========================
+
+                else if (
+                    selectedRole ===
+                    "department_staff"
+                ) {
+
+                    emailLabel.textContent =
+                        "Staff Email ID";
+
+                    emailInput.placeholder =
+                        "Enter your department staff email";
+
+                    registerText.innerHTML = `
+                        Staff access is provisioned
+                        by campus administration.
+                    `;
+
+                }
+
+
+                // =========================
                 // ADMIN
                 // =========================
 
-                else {
+                else if (
+                    selectedRole ===
+                    "admin"
+                ) {
 
                     emailLabel.textContent =
                         "Admin Email ID";
@@ -173,6 +199,27 @@ roleButtons.forEach(
                     registerText.innerHTML = `
                         Admin access is provided
                         by your college.
+                    `;
+
+                }
+
+                // =========================
+                // INDUSTRY
+                // =========================
+
+                else {
+
+                    emailLabel.textContent =
+                        "Company / Work Email ID";
+
+                    emailInput.placeholder =
+                        "name@company.com";
+
+                    registerText.innerHTML = `
+                        New Industry Partner?
+                        <a href="register-industry.html">
+                            Register Company
+                        </a>
                     `;
 
                 }
@@ -349,55 +396,34 @@ loginForm.addEventListener(
             );
 
 
-            // =================================
-            // Update selected college
-            // =================================
-
-            localStorage.setItem(
-                "selectedCollege",
-                JSON.stringify({
-
-                    _id:
-                        data.user.college.id,
-
-                    name:
-                        data.user.college.name,
-
-                    shortName:
-                        data.user.college.shortName,
-
-                    logo:
-                        data.user.college.logo,
-
-                    primaryColor:
-                        data.user.college.primaryColor,
-
-                    secondaryColor:
-                        data.user.college.secondaryColor
-
-                })
-            );
+            // Update selected college (if provided)
+            if (data.user.college) {
+                localStorage.setItem(
+                    "selectedCollege",
+                    JSON.stringify({
+                        _id: data.user.college.id,
+                        name: data.user.college.name,
+                        shortName: data.user.college.shortName,
+                        logo: data.user.college.logo,
+                        primaryColor: data.user.college.primaryColor,
+                        secondaryColor: data.user.college.secondaryColor
+                    })
+                );
+            }
 
 
             // =================================
             // Redirect
             // =================================
 
-            if (
-                data.user.role ===
-                "admin"
-            ) {
-
-                window.location.href =
-                    "admin.html";
-
-            }
-
-            else {
-
-                window.location.href =
-                    "dashboard.html";
-
+            if (data.user.role === "admin") {
+                window.location.href = "admin.html";
+            } else if (data.user.role === "department_staff") {
+                window.location.href = "staff.html";
+            } else if (data.user.role === "industry") {
+                window.location.href = "industry.html";
+            } else {
+                window.location.href = "dashboard.html";
             }
 
 

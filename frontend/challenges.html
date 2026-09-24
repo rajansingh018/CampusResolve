@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus & Societal Challenges | CampusResolve</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/challenges.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">CR</div>
+            <div>
+                <strong>CampusResolve</strong>
+                <span>Student Portal</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="report.html" class="nav-item">
+                <span>📝</span>
+                Report Issue
+            </a>
+
+            <a href="complaints.html" class="nav-item">
+                <span>📋</span>
+                My Complaints
+            </a>
+
+            <a href="challenges.html" class="nav-item active">
+                <span>🚀</span>
+                Challenges
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>💡</span>
+                Suggestions
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-btn" onclick="logout()">
+                ↪ Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div>
+                <span class="page-label">UNIVERSITY–INDUSTRY INNOVATION</span>
+                <h1>Campus & Societal Challenges 🚀</h1>
+                <p>Crowdsource big campus challenges, support ideas, and collaborate with industry partners for solutions.</p>
+            </div>
+
+            <div class="topbar-actions">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper">
+                    <button class="notification-btn" id="notificationBtn" type="button" aria-label="Notifications">
+                        🔔
+                        <span id="notificationBadge" class="notification-badge hidden">0</span>
+                    </button>
+
+                    <div id="notificationPanel" class="notification-panel">
+                        <div class="notification-header">
+                            <div>
+                                <strong>Notifications</strong>
+                                <span id="notificationCount">No new notifications</span>
+                            </div>
+                            <button id="markAllReadBtn" type="button">Mark all as read</button>
+                        </div>
+                        <div id="notificationList" class="notification-list">
+                            <div class="notification-empty">
+                                🔔
+                                <p>No notifications yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="college-info">
+                    <div class="college-logo" id="collegeLogo">CR</div>
+                    <div>
+                        <strong id="collegeName">Your College</strong>
+                        <span>Innovation Hub</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Action Banner -->
+        <section class="challenges-hero">
+            <div>
+                <span style="font-size: 11px; font-weight: 800; color: var(--college-primary); text-transform: uppercase; letter-spacing: 1px;">Crowdsourced Problem Solving</span>
+                <h2>Identify Big Challenges. Partner with Industry.</h2>
+                <p>Have an idea for smart energy, IoT, water management, waste reduction, or campus security? Submit a challenge to mobilize university resources and external industry expertise.</p>
+            </div>
+            <div>
+                <button class="hero-btn" onclick="openSubmitModal()">
+                    + Submit Challenge
+                </button>
+            </div>
+        </section>
+
+        <!-- Controls: Search & Category Filters -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" id="challengeSearch" placeholder="Search challenges by title, keyword, or expertise..." oninput="filterChallenges()">
+            </div>
+
+            <div class="filter-pills">
+                <button class="filter-pill active" data-filter="All" onclick="setFilter('All', this)">All Challenges</button>
+                <button class="filter-pill" data-filter="Seeking Industry Partner" onclick="setFilter('Seeking Industry Partner', this)">🤝 Seeking Industry</button>
+                <button class="filter-pill" data-filter="In Progress" onclick="setFilter('In Progress', this)">⚙️ In Progress</button>
+                <button class="filter-pill" data-filter="Completed" onclick="setFilter('Completed', this)">🏆 Completed & Impact</button>
+                <button class="filter-pill" data-filter="University Validated" onclick="setFilter('University Validated', this)">🎓 Validated</button>
+                <button class="filter-pill" data-filter="My" onclick="setFilter('My', this)">👤 My Submissions</button>
+            </div>
+        </div>
+
+        <!-- Challenges Grid Container -->
+        <section id="challengesContainer" class="challenges-grid">
+            <div class="loading-state" style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b;">
+                ⏳ Loading campus challenges...
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: Submit New Challenge -->
+    <div id="submitChallengeModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🚀 Submit a Campus / Societal Challenge</h3>
+                <button class="close-btn" onclick="closeSubmitModal()">&times;</button>
+            </div>
+
+            <form id="challengeForm">
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Challenge Title <span style="color:red;">*</span></label>
+                    <input type="text" id="chTitle" required placeholder="e.g. Smart IoT Water Management & Leak Detection System" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px;">
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Category <span style="color:red;">*</span></label>
+                        <select id="chCategory" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                            <option value="Smart Campus">Smart Campus</option>
+                            <option value="Energy & Sustainability">Energy & Sustainability</option>
+                            <option value="Water & Waste Management">Water & Waste Management</option>
+                            <option value="Transportation & Mobility">Transportation & Mobility</option>
+                            <option value="Cybersecurity & Safety">Cybersecurity & Safety</option>
+                            <option value="Healthcare & Hygiene">Healthcare & Hygiene</option>
+                            <option value="Digital Education">Digital Education</option>
+                            <option value="Accessibility & Inclusion">Accessibility & Inclusion</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Campus Location / Zone <span style="color:red;">*</span></label>
+                        <input type="text" id="chLocation" required placeholder="e.g. Campus-wide / Hostel Zone / Academic Block A" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Required Technical / Domain Expertise (Optional)</label>
+                    <input type="text" id="chExpertise" placeholder="e.g. IoT Sensors, Renewable Energy, Mobile App, Machine Learning" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;">
+                    <small style="color: #64748b; font-size: 11px;">Comma-separated tags to match relevant industry partners.</small>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Describe the Challenge & Desired Outcome <span style="color:red;">*</span></label>
+                    <textarea id="chDescription" required rows="4" placeholder="Explain the root problem, how it affects the campus community, and what kind of modern technical or infrastructural solution is needed..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; box-sizing:border-box;"></textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:6px;">Supporting Image / Diagram (Optional)</label>
+                    <input type="file" id="chImage" accept="image/*" style="font-size:13px;">
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" onclick="closeSubmitModal()" style="padding:10px 18px; border-radius:8px; border:1px solid #cbd5e1; background:white; cursor:pointer; font-weight:600;">Cancel</button>
+                    <button type="submit" id="chSubmitBtn" style="padding:10px 22px; border-radius:8px; border:none; background:var(--college-primary); color:white; font-weight:600; cursor:pointer;">Submit Challenge 🚀</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: View Challenge Details, Collaboration Lifecycle & Measured Impact -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 740px;">
+            <div class="modal-header">
+                <div>
+                    <span id="modalCategoryBadge" class="category-tag">Category</span>
+                    <h3 id="modalTitle" style="margin-top: 6px;">Challenge Title</h3>
+                </div>
+                <button class="close-btn" onclick="closeDetailModal()">&times;</button>
+            </div>
+
+            <div id="modalBody">
+                <!-- Dynamically Populated by challenges.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/challenges.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

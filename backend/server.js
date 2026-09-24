@@ -68,8 +68,34 @@ app.use(
 );
 
 app.use(
+    "/api/departments",
+    require("./routes/departmentRoutes")
+);
+
+app.use(
+    "/api/staff",
+    require("./routes/staffComplaintRoutes")
+);
+
+app.use(
     "/api/ai",
     require("./routes/aiRoutes")
+);
+
+// University-Industry Collaboration & Crowdsourcing Routes
+app.use(
+    "/api/challenges",
+    require("./routes/challengeRoutes")
+);
+
+app.use(
+    "/api/admin/challenges",
+    require("./routes/adminChallengeRoutes")
+);
+
+app.use(
+    "/api/industry",
+    require("./routes/industryRoutes")
 );
 
 

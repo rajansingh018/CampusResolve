@@ -18,8 +18,10 @@ const userSchema = new mongoose.Schema(
 
         studentId: {
             type: String,
-            required: true,
-            trim: true
+            trim: true,
+            required: function () {
+                return this.role === "student";
+            }
         },
 
         password: {
@@ -30,13 +32,57 @@ const userSchema = new mongoose.Schema(
         college: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "College",
-            required: true
+            required: function () {
+                return this.role !== "industry";
+            }
+        },
+
+        department: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Department",
+            default: null
         },
 
         role: {
             type: String,
-            enum: ["student", "admin"],
+            enum: ["student", "admin", "department_staff", "industry"],
             default: "student"
+        },
+
+        // Industry Partner Specific Fields
+        companyName: {
+            type: String,
+            trim: true,
+            default: null
+        },
+
+        industryCategory: {
+            type: String,
+            trim: true,
+            default: null
+        },
+
+        expertise: {
+            type: [String],
+            default: []
+        },
+
+        description: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+
+        website: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+
+        phone: {
+            type: String,
+            trim: true,
+            default: ""
         }
     },
 

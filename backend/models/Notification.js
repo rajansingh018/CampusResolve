@@ -14,6 +14,24 @@ const notificationSchema = new mongoose.Schema(
             default: null
         },
 
+        challenge: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Challenge",
+            default: null
+        },
+
+        proposal: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Proposal",
+            default: null
+        },
+
+        collaboration: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Collaboration",
+            default: null
+        },
+
         title: {
             type: String,
             required: true,
@@ -30,6 +48,9 @@ const notificationSchema = new mongoose.Schema(
             type: String,
             enum: [
                 "complaint",
+                "challenge",
+                "proposal",
+                "collaboration",
                 "success",
                 "warning",
                 "info"

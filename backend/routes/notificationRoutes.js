@@ -32,6 +32,18 @@ router.get(
                         "complaint",
                         "title status"
                     )
+                    .populate(
+                        "challenge",
+                        "title status category"
+                    )
+                    .populate(
+                        "proposal",
+                        "companyName status"
+                    )
+                    .populate(
+                        "collaboration",
+                        "title status"
+                    )
                     .sort({
                         createdAt: -1
                     })

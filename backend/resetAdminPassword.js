@@ -16,7 +16,7 @@ async function resetPassword() {
 
         console.log("MongoDB connected");
 
-        const newPassword = "Admin@12345";
+        const newPassword = process.env.ADMIN_PASSWORD;
 
         const hashedPassword =
             await bcrypt.hash(

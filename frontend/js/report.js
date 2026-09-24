@@ -233,85 +233,51 @@ reportForm.addEventListener(
                 "title"
             ).value.trim();
 
-
-        const category =
-            document.getElementById(
-                "category"
-            ).value;
-
-
-        const priority =
-            document.getElementById(
-                "priority"
-            ).value;
-
-
         const location =
             document.getElementById(
                 "location"
             ).value.trim();
 
-
         const descriptionValue =
             description.value.trim();
 
-
         if (
             !title ||
-            !category ||
             !location ||
             !descriptionValue
         ) {
 
             alert(
-                "Please fill all required fields."
+                "Please fill in the title, location, and description."
             );
 
             return;
 
         }
 
-
         // Disable button
-
         submitBtn.disabled = true;
 
         submitBtn.textContent =
-            "Submitting...";
-
+            "Analyzing & Routing with AI... 🤖";
 
         try {
             const formData =
                 new FormData();
-
 
             formData.append(
                 "title",
                 title
             );
 
-
             formData.append(
                 "description",
                 descriptionValue
             );
 
-
-            formData.append(
-                "category",
-                category
-            );
-
-
             formData.append(
                 "location",
                 location
-            );
-
-
-            formData.append(
-                "priority",
-                priority
             );
 
 

@@ -226,9 +226,11 @@ function renderComplaints(
 
                         <div class="complaint-meta">
 
-                            ${escapeHTML(
-                complaint.category
-            )}
+                            <span class="dept-badge" style="background:#e0e7ff; color:#3730a3; padding:2px 8px; border-radius:12px; font-weight:600; font-size:11px;">
+                                🏢 ${escapeHTML(complaint.department?.name || complaint.category || "General")}
+                            </span>
+
+                            ${complaint.issueType ? `• <span>🏷️ ${escapeHTML(complaint.issueType)}</span>` : ""}
 
                             •
 

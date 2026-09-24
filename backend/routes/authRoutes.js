@@ -12,6 +12,10 @@ const router = express.Router();
 // REGISTER
 // =====================================
 
+// =====================================
+// REGISTER (Student)
+// =====================================
+
 router.post("/register", async (req, res) => {
 
     try {
@@ -59,12 +63,12 @@ router.post("/register", async (req, res) => {
         // Check existing user
 
         const existingUser =
-            await User.findOne({ email });
+            await User.findOne({ email: email.toLowerCase().trim() });
 
         if (existingUser) {
 
             return res.status(400).json({
-                message: "User already exists."
+                message: "User already exists with this email."
             });
 
         }
@@ -81,11 +85,11 @@ router.post("/register", async (req, res) => {
         const user =
             await User.create({
 
-                name,
+                name: name.trim(),
 
-                email,
+                email: email.toLowerCase().trim(),
 
-                studentId,
+                studentId: studentId.trim(),
 
                 password: hashedPassword,
 
@@ -126,6 +130,110 @@ router.post("/register", async (req, res) => {
 
 
 // =====================================
+// REGISTER INDUSTRY PARTNER
+// =====================================
+
+router.post("/register-industry", async (req, res) => {
+    try {
+        const {
+            name,
+            email,
+            password,
+            companyName,
+            industryCategory,
+            expertise,
+            description,
+            website,
+            phone,
+            collegeId
+        } = req.body;
+
+        if (!name || !email || !password || !companyName) {
+            return res.status(400).json({
+                message: "Contact name, work email, password, and company name are required."
+            });
+        }
+
+        const normalizedEmail = email.toLowerCase().trim();
+
+        const existingUser = await User.findOne({ email: normalizedEmail });
+        if (existingUser) {
+            return res.status(400).json({
+                message: "An account already exists with this email."
+            });
+        }
+
+        // Format expertise array
+        let expertiseArray = [];
+        if (Array.isArray(expertise)) {
+            expertiseArray = expertise.map(e => String(e).trim()).filter(Boolean);
+        } else if (typeof expertise === "string" && expertise.trim()) {
+            expertiseArray = expertise.split(",").map(e => e.trim()).filter(Boolean);
+        }
+
+        // Optional college check
+        let collegeRef = null;
+        if (collegeId) {
+            const collegeDoc = await College.findById(collegeId);
+            if (collegeDoc) {
+                collegeRef = collegeDoc._id;
+            }
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const industryUser = await User.create({
+            name: name.trim(),
+            email: normalizedEmail,
+            password: hashedPassword,
+            role: "industry",
+            companyName: companyName.trim(),
+            industryCategory: (industryCategory || "Information Technology").trim(),
+            expertise: expertiseArray,
+            description: (description || "").trim(),
+            website: (website || "").trim(),
+            phone: (phone || "").trim(),
+            college: collegeRef
+        });
+
+        const token = jwt.sign(
+            {
+                userId: industryUser._id,
+                collegeId: collegeRef,
+                role: "industry",
+                companyName: industryUser.companyName
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        res.status(201).json({
+            message: "Industry partner account created successfully! 🚀",
+            token,
+            user: {
+                id: industryUser._id,
+                name: industryUser.name,
+                email: industryUser.email,
+                role: industryUser.role,
+                companyName: industryUser.companyName,
+                industryCategory: industryUser.industryCategory,
+                expertise: industryUser.expertise,
+                description: industryUser.description,
+                website: industryUser.website,
+                college: collegeRef
+            }
+        });
+
+    } catch (error) {
+        console.error("Industry registration error:", error);
+        res.status(500).json({
+            message: error.message || "Unable to register industry account."
+        });
+    }
+});
+
+
+// =====================================
 // LOGIN
 // =====================================
 
@@ -147,20 +255,17 @@ router.post(
             // Validate
             // =================================
 
-            if (
-                !email ||
-                !password ||
-                !role ||
-                !collegeId
-            ) {
-
+            if (!email || !password || !role) {
                 return res.status(400).json({
-
-                    message:
-                        "Email, password, role and college are required."
-
+                    message: "Email, password, and role are required."
                 });
+            }
 
+            // Student/Admin/Staff require collegeId
+            if (role !== "industry" && !collegeId) {
+                return res.status(400).json({
+                    message: "College selection is required for this role."
+                });
             }
 
 
@@ -170,7 +275,9 @@ router.post(
 
             if (
                 role !== "student" &&
-                role !== "admin"
+                role !== "admin" &&
+                role !== "department_staff" &&
+                role !== "industry"
             ) {
 
                 return res.status(400).json({
@@ -187,15 +294,16 @@ router.post(
             // Find User
             // =================================
 
-            const user =
-                await User.findOne({
+            const normalizedEmail = email.toLowerCase().trim();
+            const query = { email: normalizedEmail };
 
-                    email: email.toLowerCase().trim(),
+            if (role !== "industry") {
+                query.college = collegeId;
+            }
 
-                    college: collegeId
-
-                })
-                .populate("college");
+            const user = await User.findOne(query)
+                .populate("college")
+                .populate("department", "name");
 
 
             // =================================
@@ -215,24 +323,22 @@ router.post(
 
 
             // =================================
-            // IMPORTANT:
-            // Check selected role
-            // against database role
+            // Check selected role against database role
             // =================================
 
-            if (
-                user.role !== role
-            ) {
+            if (user.role !== role) {
+
+                let roleMismatchMsg = "This account is not a student account.";
+                if (role === "admin") {
+                    roleMismatchMsg = "This account is not an admin account.";
+                } else if (role === "department_staff") {
+                    roleMismatchMsg = "This account is not a department staff account.";
+                } else if (role === "industry") {
+                    roleMismatchMsg = "This account is not registered as an industry partner.";
+                }
 
                 return res.status(403).json({
-
-                    message:
-                        role === "admin"
-
-                            ? "This account is not an admin account."
-
-                            : "This account is not a student account."
-
+                    message: roleMismatchMsg
                 });
 
             }
@@ -265,85 +371,61 @@ router.post(
             // JWT
             // =================================
 
-            const token =
-                jwt.sign(
+            const tokenPayload = {
+                userId: user._id,
+                role: user.role,
+                collegeId: user.college?._id || user.college || null,
+                departmentId: user.department?._id || user.department || null,
+                companyName: user.companyName || null
+            };
 
-                    {
-
-                        userId:
-                            user._id,
-
-                        collegeId:
-                            user.college._id,
-
-                        role:
-                            user.role
-
-                    },
-
-                    process.env.JWT_SECRET,
-
-                    {
-
-                        expiresIn:
-                            "7d"
-
-                    }
-
-                );
+            const token = jwt.sign(
+                tokenPayload,
+                process.env.JWT_SECRET,
+                { expiresIn: "7d" }
+            );
 
 
             // =================================
             // Response
             // =================================
 
+            const responseUser = {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                studentId: user.studentId,
+                role: user.role,
+                companyName: user.companyName || null,
+                industryCategory: user.industryCategory || null,
+                expertise: user.expertise || [],
+                description: user.description || "",
+                website: user.website || "",
+                department: user.department
+                    ? {
+                        id: user.department._id,
+                        name: user.department.name
+                    }
+                    : null,
+                college: user.college
+                    ? {
+                        id: user.college._id,
+                        name: user.college.name,
+                        shortName: user.college.shortName,
+                        logo: user.college.logo,
+                        primaryColor: user.college.primaryColor,
+                        secondaryColor: user.college.secondaryColor
+                    }
+                    : null
+            };
+
             res.json({
 
-                message:
-                    "Login successful.",
+                message: "Login successful.",
 
                 token,
 
-                user: {
-
-                    id:
-                        user._id,
-
-                    name:
-                        user.name,
-
-                    email:
-                        user.email,
-
-                    studentId:
-                        user.studentId,
-
-                    role:
-                        user.role,
-
-                    college: {
-
-                        id:
-                            user.college._id,
-
-                        name:
-                            user.college.name,
-
-                        shortName:
-                            user.college.shortName,
-
-                        logo:
-                            user.college.logo,
-
-                        primaryColor:
-                            user.college.primaryColor,
-
-                        secondaryColor:
-                            user.college.secondaryColor
-
-                    }
-
-                }
+                user: responseUser
 
             });
 

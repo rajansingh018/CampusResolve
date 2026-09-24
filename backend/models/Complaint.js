@@ -16,18 +16,62 @@ const complaintSchema = new mongoose.Schema(
 
         category: {
             type: String,
-            required: true,
+            trim: true,
+            default: "Other"
+        },
+
+        // Department assignment (AI-routed or manual)
+        department: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Department",
+            default: null
+        },
+
+        // Staff member working on complaint
+        assignedStaff: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            default: null
+        },
+
+        // AI Triage & Analysis metadata
+        issueType: {
+            type: String,
+            trim: true,
+            default: null
+        },
+
+        aiPriority: {
+            type: String,
             enum: [
-                "Infrastructure",
-                "Wi-Fi & IT",
-                "Hostel",
-                "Mess",
-                "Transport",
-                "Academics",
-                "Safety",
-                "Cleanliness",
-                "Other"
-            ]
+                "Low",
+                "Medium",
+                "High",
+                "Critical"
+            ],
+            default: "Medium"
+        },
+
+        aiSummary: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+
+        aiReason: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+
+        aiConfidence: {
+            type: Number,
+            default: 0
+        },
+
+        requiresManualAssignment: {
+            type: Boolean,
+            default: false
         },
 
         location: {

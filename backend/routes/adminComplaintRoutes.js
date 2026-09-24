@@ -3,6 +3,12 @@ const express = require("express");
 const Complaint =
     require("../models/Complaint");
 
+const Department =
+    require("../models/Department");
+
+const User =
+    require("../models/User");
+
 const protect =
     require("../middleware/authMiddleware");
 
@@ -138,6 +144,16 @@ router.get(
                     .populate(
                         "student",
                         "name email studentId"
+                    )
+
+                    .populate(
+                        "department",
+                        "name"
+                    )
+
+                    .populate(
+                        "assignedStaff",
+                        "name email"
                     )
 
                     .populate(
@@ -470,6 +486,180 @@ router.patch(
 
         }
 
+    }
+);
+
+
+// =====================================
+// MANUALLY ASSIGN / REASSIGN DEPARTMENT
+// =====================================
+
+router.patch(
+    "/:id/assign",
+    protect,
+    adminOnly,
+    async (req, res) => {
+        try {
+            const { departmentId, assignedStaffId } = req.body;
+
+            if (!departmentId) {
+                return res.status(400).json({
+                    message: "Department ID is required for assignment."
+                });
+            }
+
+            const department = await Department.findOne({
+                _id: departmentId,
+                college: req.user.collegeId
+            });
+
+            if (!department) {
+                return res.status(404).json({
+                    message: "Department not found in your college."
+                });
+            }
+
+            const complaint = await Complaint.findOne({
+                _id: req.params.id,
+                college: req.user.collegeId
+            });
+
+            if (!complaint) {
+                return res.status(404).json({
+                    message: "Complaint not found."
+                });
+            }
+
+            // Assign department and clear manual routing flag
+            complaint.department = department._id;
+            complaint.category = department.name;
+            complaint.requiresManualAssignment = false;
+
+            // Optional staff assignment
+            if (assignedStaffId) {
+                const staff = await User.findOne({
+                    _id: assignedStaffId,
+                    department: department._id,
+                    college: req.user.collegeId,
+                    role: "department_staff"
+                });
+                if (staff) {
+                    complaint.assignedStaff = staff._id;
+                }
+            }
+
+            if (!complaint.statusHistory) {
+                complaint.statusHistory = [];
+            }
+
+            complaint.statusHistory.push({
+                status: complaint.status,
+                message: `Assigned to ${department.name} by campus administration.`,
+                updatedAt: new Date()
+            });
+
+            await complaint.save();
+
+            // Notify department staff
+            try {
+                const deptStaff = await User.find({
+                    role: "department_staff",
+                    department: department._id,
+                    college: req.user.collegeId
+                });
+
+                for (const staff of deptStaff) {
+                    await Notification.create({
+                        user: staff._id,
+                        complaint: complaint._id,
+                        title: `Complaint Assigned to ${department.name}`,
+                        message: `Complaint "${complaint.title}" has been assigned to your department by admin.`,
+                        type: "complaint"
+                    });
+                }
+            } catch (notifErr) {
+                console.error("Failed to notify staff of manual assignment:", notifErr.message);
+            }
+
+            await complaint.populate("student", "name email studentId");
+            await complaint.populate("department", "name");
+            await complaint.populate("assignedStaff", "name email");
+
+            res.json({
+                message: `Complaint assigned to ${department.name} successfully.`,
+                complaint
+            });
+
+        } catch (error) {
+            console.error("Admin assignment error:", error);
+            res.status(500).json({
+                message: error.message || "Failed to assign complaint department."
+            });
+        }
+    }
+);
+
+
+// =====================================
+// MANUALLY CHANGE PRIORITY
+// =====================================
+
+router.patch(
+    "/:id/priority",
+    protect,
+    adminOnly,
+    async (req, res) => {
+        try {
+            const { priority } = req.body;
+            const validPriorities = ["Low", "Medium", "High", "Critical"];
+
+            if (!validPriorities.includes(priority)) {
+                return res.status(400).json({
+                    message: "Invalid priority level."
+                });
+            }
+
+            const complaint = await Complaint.findOne({
+                _id: req.params.id,
+                college: req.user.collegeId
+            });
+
+            if (!complaint) {
+                return res.status(404).json({
+                    message: "Complaint not found."
+                });
+            }
+
+            const oldPriority = complaint.priority;
+            complaint.priority = priority;
+
+            if (!complaint.statusHistory) {
+                complaint.statusHistory = [];
+            }
+
+            complaint.statusHistory.push({
+                status: complaint.status,
+                message: `Priority changed from ${oldPriority} to ${priority} by administrator.`,
+                updatedAt: new Date()
+            });
+
+            await complaint.save();
+
+            await complaint.populate("student", "name email studentId");
+            await complaint.populate("department", "name");
+            await complaint.populate("assignedStaff", "name email");
+
+            res.json({
+                message: `Priority updated to ${priority} successfully.`,
+                complaint
+            });
+
+        } catch (error) {
+            console.error("Admin priority update error:", error);
+            res.status(500).json({
+                message: error.message || "Failed to update priority."
+            });
+        }
     }
 );
 

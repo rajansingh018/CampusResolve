@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Staff Dashboard | CampusResolve</title>
+    <link rel="stylesheet" href="css/staff.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">CR</div>
+            <div>
+                <strong>CampusResolve</strong>
+                <span>Staff Portal</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="staff.html" class="nav-item active">
+                <span>📋</span>
+                Department Issues
+            </a>
+            <a href="#stats" class="nav-item">
+                <span>📊</span>
+                Department KPIs
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-btn" onclick="logout()">
+                ↪ Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div>
+                <span class="page-label">DEPARTMENT STAFF PORTAL</span>
+                <h1>
+                    Welcome, <span id="staffName">Staff</span>
+                    <span id="staffDeptBadge" class="dept-tag">Department</span>
+                </h1>
+                <p>Manage and resolve issues assigned to your department.</p>
+            </div>
+
+            <div class="topbar-right">
+                <!-- Notifications Bell -->
+                <div class="notification-wrapper">
+                    <button class="notification-btn" id="notificationBtn" type="button" aria-label="Notifications">
+                        🔔
+                        <span id="notificationBadge" class="notification-badge hidden">0</span>
+                    </button>
+
+                    <div id="notificationPanel" class="notification-panel">
+                        <div class="notification-header">
+                            <div>
+                                <strong>Notifications</strong>
+                                <span id="notificationCount">No new notifications</span>
+                            </div>
+                            <button id="markAllReadBtn" type="button">Mark all as read</button>
+                        </div>
+                        <div id="notificationList" class="notification-list">
+                            <div class="notification-empty">
+                                🔔
+                                <p>No notifications yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- College Info -->
+                <div class="college-info">
+                    <div class="college-logo" id="collegeLogo">CR</div>
+                    <div>
+                        <strong id="collegeName">Your College</strong>
+                        <span style="display:block; font-size:11px; color:#64748b;">Staff Desk</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats KPIs -->
+        <section class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-icon blue">📋</div>
+                <div>
+                    <span>Total Assigned</span>
+                    <strong id="statTotal">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon yellow">🔍</div>
+                <div>
+                    <span>Under Review</span>
+                    <strong id="statReview">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">🛠️</div>
+                <div>
+                    <span>In Progress</span>
+                    <strong id="statProgress">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">✓</div>
+                <div>
+                    <span>Resolved</span>
+                    <strong id="statResolved">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div>
+                <h2 style="font-size: 20px; color: #0f172a;">Assigned Complaints</h2>
+                <p style="font-size: 13px; color: #64748b;">All campus grievances routed to your department.</p>
+            </div>
+
+            <button class="btn btn-outline" onclick="loadComplaints()">
+                ↻ Refresh
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Reported">Reported (New)</button>
+            <button class="filter-btn" data-filter="Under Review">Under Review</button>
+            <button class="filter-btn" data-filter="In Progress">In Progress</button>
+            <button class="filter-btn" data-filter="Resolved">Resolved</button>
+            <button class="filter-btn" data-filter="Rejected">Rejected</button>
+        </div>
+
+        <!-- Complaints Container -->
+        <section id="complaintsContainer" class="complaints-container">
+            <div class="empty-state">
+                <div class="icon">⏳</div>
+                <h3>Loading complaints...</h3>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: Resolve Complaint (Requires photo upload) -->
+    <div id="resolveModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>✓ Mark Complaint as Resolved</h3>
+                <button class="modal-close" onclick="closeResolveModal()">&times;</button>
+            </div>
+            <form id="resolveForm">
+                <div class="modal-body">
+                    <p style="font-size: 13px; color: #64748b; margin-bottom: 14px;">
+                        Upload a photo showing the completed work / fix as proof for the student and administration.
+                    </p>
+
+                    <div class="form-group">
+                        <label for="resolvePhoto">Resolution Proof Photo <span style="color:red;">*</span></label>
+                        <input type="file" id="resolvePhoto" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resolveRemarks">Resolution Remarks</label>
+                        <textarea id="resolveRemarks" rows="3" placeholder="Describe the resolution actions taken (e.g. Wi-Fi router rebooted and cable replaced)..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeResolveModal()">Cancel</button>
+                    <button type="submit" class="btn btn-success" id="resolveSubmitBtn">Upload Proof & Resolve ✓</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Start Work / Remarks -->
+    <div id="statusModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="statusModalTitle">Update Status</h3>
+                <button class="modal-close" onclick="closeStatusModal()">&times;</button>
+            </div>
+            <form id="statusForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="statusRemarks">Staff Remarks (Visible to student)</label>
+                        <textarea id="statusRemarks" rows="3" placeholder="Add progress notes or instructions for the student..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeStatusModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="statusSubmitBtn">Confirm Status Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Image Preview -->
+    <div id="photoModal" class="modal-overlay" style="display: none;" onclick="closePhotoModal()">
+        <div class="modal-card" style="max-width: 650px; text-align: center; background: transparent; box-shadow: none;" onclick="event.stopPropagation()">
+            <img id="photoModalImg" src="" alt="Proof Preview" style="max-width: 100%; max-height: 80vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="margin-top: 10px;">
+                <button class="btn btn-outline" style="background:white;" onclick="closePhotoModal()">Close Preview</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/staff.js"></script>
+</body>
+
+</html>
